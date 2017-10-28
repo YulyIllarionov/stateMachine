@@ -11,6 +11,7 @@
 #include <fstream>
 
 using namespace std;
+typedef unsigned char uchar;
 
 int main()
 {
@@ -22,17 +23,17 @@ int main()
     string nameString("илларионов юлий сергеевич");
     nameString.resize(workTerminalDictionary.size());
     terminalLettersContainer name;
-    for (int i = 0; i < nameString.size(); i++)
+    for (unsigned i = 0; i < nameString.size(); i++)
         name.push_back(terminalLetter(1, nameString[i]));
 
     //Отображение имени на Xi
     terminalLettersContainer secondWorkTerminalDictionary(8, "x");
-    for (int i = 0; i < secondWorkTerminalDictionary.size(); i++)
+    for (unsigned i = 0; i < secondWorkTerminalDictionary.size(); i++)
         secondWorkTerminalDictionary[i] += to_string(i);
 
     terminalLettersContainer nameInX;
 
-    for (int i = 0; i < name.size(); i++)
+    for (unsigned i = 0; i < name.size(); i++)
     {
         nameInX.push_back(secondWorkTerminalDictionary.at(
             letterNumberInRussianAlphabet(name[i])));
@@ -41,14 +42,14 @@ int main()
     //Вывод имени и словарей в tex таблицу
     cout << "Начало таблицы 1" << endl << endl;
     cout << "\\begin{tabular}{" << "|c|";
-    for (int i = 0; i < workTerminalDictionary.size(); i++)
+    for (unsigned i = 0; i < workTerminalDictionary.size(); i++)
         cout << "c|";
     cout << "}" << endl;
 
     //Вывод исходного терминального словаря 
     cout << "\\hline" << endl;
     cout << toTexTableCell("c_i");
-    for (int i = 0; i < workTerminalDictionary.size(); i++)
+    for (unsigned i = 0; i < workTerminalDictionary.size(); i++)
     {
         cout << " & ";
         cout << toTexTableCell(letterToTex(workTerminalDictionary[i])) << " ";
@@ -57,7 +58,7 @@ int main()
 
     //Вывод имени 
     cout << toTexTableCell("s_i");
-    for (int i = 0; i < name.size(); i++)
+    for (unsigned i = 0; i < name.size(); i++)
     {
         cout << " & ";
         cout << name[i] << " ";
@@ -66,7 +67,7 @@ int main()
 
     //Вывод нового терминального словаря  
     cout << toTexTableCell("x_i");
-    for (int i = 0; i < name.size(); i++)
+    for (unsigned i = 0; i < name.size(); i++)
     {
         cout << " & ";
         cout << toTexTableCell(letterToTex(nameInX[i])) << " ";
@@ -86,20 +87,20 @@ int main()
 
     cout << "Начало таблицы 2" << endl << endl;
     cout << "\\begin{tabular}{" << "|";
-    for (int i = 0; i < russianLeters.size()/2; i++)
+    for (unsigned i = 0; i < russianLeters.size()/2; i++)
         cout << "c|";
     cout << "}" << endl;
     //Вывод первой половины русского алфавита
-    for (char i = 0; i < russianLeters.size()/2; i++)
+    for (unsigned i = 0; i < russianLeters.size()/2; i++)
     {
         cout << russianLeters[i];
         if (i != russianLeters.size() / 2 - 1)
             cout << " & ";
     }
     cout << " \\\\ \\hline" << endl;
-    for (char i = 0; i < russianLeters.size() / 2; i++)
+    for (unsigned i = 0; i < russianLeters.size() / 2; i++)
     {
-        for (int j = 0; j < russianAlphabet.size(); j++)
+        for (unsigned j = 0; j < russianAlphabet.size(); j++)
         {
             if (find(russianAlphabet[j].begin(), russianAlphabet[j].end(), russianLeters[i]) != russianAlphabet[j].end())
             {
@@ -112,16 +113,16 @@ int main()
     }
     cout << " \\\\ \\hline" << endl;
     //Вывод второй половины русского алфавита
-    for (char i = russianLeters.size() / 2; i < russianLeters.size(); i++)
+    for (unsigned i = russianLeters.size() / 2; i < russianLeters.size(); i++)
     {
         cout << russianLeters[i];
         if (i != russianLeters.size() - 1)
             cout << " & ";
     }
     cout << " \\\\ \\hline" << endl;
-    for (char i = russianLeters.size() / 2; i < russianLeters.size(); i++)
+    for (unsigned i = russianLeters.size() / 2; i < russianLeters.size(); i++)
     {
-        for (int j = 0; j < russianAlphabet.size(); j++)
+        for (unsigned j = 0; j < russianAlphabet.size(); j++)
         {
             if (find(russianAlphabet[j].begin(), russianAlphabet[j].end(), russianLeters[i]) != russianAlphabet[j].end())
             {
@@ -139,16 +140,16 @@ int main()
 
     //Вывод правил вывода
     cout << "Начало правил вывода" << endl << endl;
-    for (int i = 0; i < workInferenceRules.size(); i++)
+    for (unsigned i = 0; i < workInferenceRules.size(); i++)
     {
         cout << toTexTableCell(workInferenceRules[i].toTexString()) << ";\t" << endl;
     }
     cout << endl << "Конец правил вывода" << endl;
     
     //Переход от C к X в правилах вывода
-    for (int i = 0; i < workInferenceRules.size(); i++)
+    for (unsigned i = 0; i < workInferenceRules.size(); i++)
     {
-        for (int j = 0; j < workInferenceRules[i].condition.size(); j++)
+        for (unsigned j = 0; j < workInferenceRules[i].condition.size(); j++)
         {
             workInferenceRules[i].condition[j] = nameInX[find(workTerminalDictionary.begin(),
                 workTerminalDictionary.end(), workInferenceRules[i].condition[j]) - workTerminalDictionary.begin()];
@@ -157,7 +158,7 @@ int main()
 
     //Вывод правил вывода
     cout << "Начало правил вывода" << endl << endl;
-    for (int i = 0; i < workInferenceRules.size(); i++)
+    for (unsigned i = 0; i < workInferenceRules.size(); i++)
     {
         cout << toTexTableCell(workInferenceRules[i].toTexString()) << ";\t" << endl;
     }
@@ -172,27 +173,27 @@ int main()
 
     //Вывод правил вывода
     cout << "Начало правил вывода" << endl << endl;
-    for (int i = 0; i < inferenceAutomatonRules.size(); i++)
+    for (unsigned i = 0; i < inferenceAutomatonRules.size(); i++)
     {
         cout << toTexTableCell(inferenceAutomatonRules[i].toTexString()) << ";\t" << endl;
     }
     cout << endl << "Конец правил вывода" << endl;
 
     //Вывод расширенного нетерминального словаря
-    for (int i = 0; i < workAutomatonNonterminalDictionary.size(); i++)
+    for (unsigned i = 0; i < workAutomatonNonterminalDictionary.size(); i++)
         cout << toTexTableCell(letterToTex(workAutomatonNonterminalDictionary[i])) << ", ";
     cout << workAutomatonNonterminalDictionary.size() << endl<< endl;
 
 
     workAutomatonNonterminalDictionary.push_back("-");
-    for (int i = 0; i < inferenceAutomatonRules.size(); i++)
+    for (unsigned i = 0; i < inferenceAutomatonRules.size(); i++)
         inferenceAutomatonRules[i].addRightIfEmpty("-");
 
-    for (int i = 0; i < workAutomatonNonterminalDictionary.size(); i++)
+    for (unsigned i = 0; i < workAutomatonNonterminalDictionary.size(); i++)
         cout << workAutomatonNonterminalDictionary[i] << "\t";
     cout << endl << endl;
     
-    for (int i = 0; i < inferenceAutomatonRules.size(); i++)
+    for (unsigned i = 0; i < inferenceAutomatonRules.size(); i++)
     {
         inferenceAutomatonRules[i].print();
         cout << endl;
@@ -202,16 +203,16 @@ int main()
     //Замена нетерминальных символов на состояния автомата
     nonterminalLettersContainer secondWorkNonterminalDictionary(
         workAutomatonNonterminalDictionary.size(), "q");
-    for (int i = 0; i < secondWorkNonterminalDictionary.size(); i++)
+    for (unsigned i = 0; i < secondWorkNonterminalDictionary.size(); i++)
         secondWorkNonterminalDictionary[i] += to_string(i);
 
-    for (int i = 0; i < inferenceAutomatonRules.size(); i++)
+    for (unsigned i = 0; i < inferenceAutomatonRules.size(); i++)
     {
         inferenceAutomatonRules[i].changeNontetminal(
             workAutomatonNonterminalDictionary, secondWorkNonterminalDictionary);
     }
 
-    for (int i = 0; i < inferenceAutomatonRules.size(); i++)
+    for (unsigned i = 0; i < inferenceAutomatonRules.size(); i++)
     {
         inferenceAutomatonRules[i].print();
         cout << endl;
@@ -231,11 +232,11 @@ int main()
 
     //sort(stateMachine.connections.begin(), stateMachine.connections.end());
 
-    for (int i = 0; i < stateMachine.nodesNames.size(); i++)
+    for (unsigned i = 0; i < stateMachine.nodesNames.size(); i++)
         cout << stateMachine.nodesNames[i] << "\t";
     cout << endl << endl;
 
-    for (int i = 0; i < stateMachine.connections.size(); i++)
+    for (unsigned i = 0; i < stateMachine.connections.size(); i++)
     {
         stateMachine.connections[i].print();
         cout << endl;
@@ -250,14 +251,14 @@ int main()
     nonterminalLettersContainer minimizationVertical(stateMachine.nodesNames);
     nonterminalLettersContainer minimizationHorizontal(stateMachine.nodesNames);
 
-    for (int i = 0; i < stateMachine.nodesNames.size(); i++)
+    for (unsigned i = 0; i < stateMachine.nodesNames.size(); i++)
         cout << stateMachine.nodesNames[i] << "\t";
     cout << endl;
 
     minimizationVertical.erase(minimizationVertical.begin(),
         minimizationVertical.begin() + 3);
     minimizationVertical.erase(minimizationVertical.end() - 1);
-    for (int i = 0; i < minimizationVertical.size(); i++)
+    for (unsigned i = 0; i < minimizationVertical.size(); i++)
         cout << minimizationVertical[i] << "\t";
     cout << endl;
 
@@ -265,7 +266,7 @@ int main()
         minimizationHorizontal.begin() + 2);
     minimizationHorizontal.erase(minimizationHorizontal.end() - 2,
         minimizationHorizontal.end());
-    for (int i = 0; i < minimizationHorizontal.size(); i++)
+    for (unsigned i = 0; i < minimizationHorizontal.size(); i++)
         cout << minimizationHorizontal[i] << "\t";
     cout << endl;
 
@@ -282,7 +283,7 @@ int main()
     minimizedStateMachineTable.toTexFile("minimizedStateMachineTable.txt");
 
     //minimizedStateMachine.placingStates(31, std::vector<int>({0, 31, 6, 1, 0}));
-    minimizedStateMachine.placingStates(std::vector<int>({ 0, 1, 2, 4, 3, 9, 11, 10, 7, 8, 14, 6, 5, 13, 12, 15, }));
+    minimizedStateMachine.placingStates(std::vector<unsigned>({ 0, 1, 2, 4, 3, 9, 11, 10, 7, 8, 14, 6, 5, 13, 12, 15, }));
     minimizedStateMachine.toCubeDotFile("cubeMinimizedStateMachine.dot");
 
     std::vector<triggerTable> triggers;
@@ -295,7 +296,7 @@ int main()
     triggerTable triggerInv(triggers.back());
     triggerInv.invertion();
     triggerInv.toDotFiles(".//triggerCubesInv//" + triggerInv.triggerName);
-    for (int i = S; i <= K; i++)
+    for (unsigned i = S; i <= K; i++)
     {
         triggers.push_back(triggerTable(triggers[0], i));
         triggers.back().toTexFiles("triggersTables//" + triggers.back().triggerName + "_triggerTable.txt");

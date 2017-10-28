@@ -119,9 +119,9 @@ public:
     graph& operator = (const graph& other);
 
     void determinancy();
-    void placingStatesSlow(int hammingWeight);
-    void placingStates(int hammingWeight, std::vector<int> normesNumber);
-    void placingStates(std::vector<int> permutation);
+    void placingStatesSlow(unsigned hammingWeight);
+    void placingStates(unsigned hammingWeight, std::vector<unsigned> normesNumber);
+    void placingStates(std::vector<unsigned> permutation);
 
     void toDotFile(std::string fileName);
     void toCubeDotFile(std::string fileName);
@@ -187,7 +187,7 @@ class triggerTable
 public:
     nonterminalLettersContainer symbols;
     std::vector<predicate> jumpConditions; 
-    std::vector<std::vector<int>> jumpConditionsNumbers;
+    std::vector<std::vector<unsigned>> jumpConditionsNumbers;
     std::string triggerName; 
 
 public:
@@ -195,7 +195,7 @@ public:
     triggerTable(const triggerTable& other);
     triggerTable(const triggerTable& other, int input);
     void invertion();
-    std::vector<std::vector<int>> combinations(int n, int r);
+    std::vector<std::vector<unsigned>> combinations(unsigned n, unsigned r);
     void find—oating(std::vector<int> realNodes);
     void minimization(terminalLetter axeName);
     void minimizationBad();

@@ -3,9 +3,9 @@
 #include "grammar.h"
 #include <vector>
 
-terminalLettersContainer workTerminalDictionary({ "c1", "c2","c3","c4","c5","c6","c7","c8","c9","c10","c11","c12", "c13","c14","c15","c16","c17","c18" });
+terminalLettersContainer workTerminalDictionary{ "c1", "c2","c3","c4","c5","c6","c7","c8","c9","c10","c11","c12", "c13","c14","c15","c16","c17","c18" };
 
-nonterminalLettersContainer workNonterminalDictionary({ "S","A","B","C","D","E","F" });
+nonterminalLettersContainer workNonterminalDictionary{ "S","A","B","C","D","E","F" };
 
 inferenceRulesContainer workInferenceRules({
     inferenceRule("S", {"c1","c2","c3"}, "A"),
@@ -40,9 +40,9 @@ std::vector<terminalLettersContainer> russianAlphabet({
 
 int letterNumberInRussianAlphabet(terminalLetter let)
 {
-    for (unsigned int i = 0; i < russianAlphabet.size(); i++)
+    for (unsigned i = 0; i < russianAlphabet.size(); i++)
     {
-        for (int j = 0; j < russianAlphabet[i].size(); j++)
+        for (unsigned j = 0; j < russianAlphabet[i].size(); j++)
         {
             if (russianAlphabet[i][j] == let)
                 return i;
