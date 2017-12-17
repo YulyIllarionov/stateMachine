@@ -550,10 +550,10 @@ void graph::placingStatesSlow(unsigned hammingWeight)
 	//    cout << permutation[i] << "\t";
 }
 
-void graph::placingStates(unsigned hammingWeight, std::vector<unsigned> normesNumber)
+void graph::placingStates(/*unsigned hammingWeight, std::vector<unsigned> normesNumber*/)
 {
 	const unsigned degree = static_cast<unsigned>(std::ceil(std::log2(nodesNames.size())));
-	const unsigned size = static_cast<unsigned>(std::pow(2, degree));
+	const unsigned size = static_cast<unsigned>(std::pow(2, degree)); 
 	unsigned* permutation = new unsigned[size];
 	unsigned* min_permutation = new unsigned[size];
 	for (unsigned i = 0; i < size; i++)
@@ -577,7 +577,7 @@ void graph::placingStates(unsigned hammingWeight, std::vector<unsigned> normesNu
 	std::time_t startTime = std::time(nullptr);
 
 	unsigned minNorm = std::numeric_limits<unsigned>::max();
-	std::vector<unsigned> currentNormesNumber(normesNumber.size(), 0);
+	std::vector<unsigned> currentNormesNumber(degree + 1, 0);
 	do
 	{
 		fill(currentNormesNumber.begin(), currentNormesNumber.end(), 0);
@@ -609,14 +609,14 @@ void graph::placingStates(unsigned hammingWeight, std::vector<unsigned> normesNu
 			for (unsigned i = 0; i < size; i++)
 			{
 				min_permutation[i] = permutation[i];
-				cout << min_permutation[i] << " ";
+				cout << min_permutation[i] << ", ";
 			}
 			cout << "\tHamming: " << minNorm;
 			cout << " Normes: ";
 			for (unsigned i = 1; i < currentNormesNumber.size(); i++)
 				cout << currentNormesNumber[i] << ", ";
 			cout << endl;
-			bool goodPermutation = false;
+			/*bool goodPermutation = false;
 			if (minNorm <= hammingWeight)
 			{
 				goodPermutation = true;
@@ -625,7 +625,7 @@ void graph::placingStates(unsigned hammingWeight, std::vector<unsigned> normesNu
 						goodPermutation = false;
 			}
 			if (goodPermutation)
-				break;
+				break;*/
 		}
 		if (index >= 10000000)
 		{
@@ -635,11 +635,16 @@ void graph::placingStates(unsigned hammingWeight, std::vector<unsigned> normesNu
 		index++;
 
 	} while (std::next_permutation(permutation, permutation + size));
+
 	ofstream file("goodPermutation.txt");
-	for (unsigned i = 0; i < size; i++)
-		file << min_permutation[i] << ", ";
-	file << endl;
-	file.close();
+	if (file.is_open())
+	{
+		for (unsigned i = 0; i < size; i++)
+			file << min_permutation[i] << ", ";
+		file << endl;
+		file.close();
+	}
+
 	nonterminalLettersContainer newNodesNames;
 	for (unsigned i = 0; i < size; i++)
 	{
@@ -1369,7 +1374,7 @@ triggerTable::triggerTable(const triggerTable& other, int input)
 	jumpConditions = other.jumpConditions;
 	for (unsigned i = 0; i < other.jumpConditionsNumbers.size(); i++)
 	{
-		jumpConditionsNumbers.push_back(std::vector<unsigned>(size));
+		jumpConditionsNumbers.push_back(std::vector<int>(size));
 		for (unsigned j = 0; j < jumpConditionsNumbers[i].size(); j++)
 		{
 			int left = (i >> j) & 1;

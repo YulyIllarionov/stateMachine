@@ -1,0 +1,20 @@
+#Ignore all
+*
+
+# Except this
+!.gitignore
+!README.md
+
+!*.h
+!*.cpp
+
+#Ignore studio files
+stdafx.cpp
+stdafx.h
+targetver.h
+
+!triggersTables
+!triggerCubesInv
+!triggerCubes
+
+!stateMachineFormulasExample.txt

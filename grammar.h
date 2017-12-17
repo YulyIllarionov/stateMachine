@@ -120,7 +120,7 @@ public:
 
     void determinancy();
     void placingStatesSlow(unsigned hammingWeight);
-    void placingStates(unsigned hammingWeight, std::vector<unsigned> normesNumber);
+    void placingStates(/*unsigned hammingWeight, std::vector<unsigned> normesNumber*/);
     void placingStates(std::vector<unsigned> permutation);
 
     void toDotFile(std::string fileName);
@@ -187,7 +187,7 @@ class triggerTable
 public:
     nonterminalLettersContainer symbols;
     std::vector<predicate> jumpConditions; 
-    std::vector<std::vector<unsigned>> jumpConditionsNumbers;
+    std::vector<std::vector<int>> jumpConditionsNumbers;
     std::string triggerName; 
 
 public:

@@ -20,7 +20,7 @@ int main()
     system("pause");
     
     //Задание имени
-    string nameString("илларионов юлий сергеевич");
+    string nameString("костусев владислав андреевич");
     nameString.resize(workTerminalDictionary.size());
     terminalLettersContainer name;
     for (unsigned i = 0; i < nameString.size(); i++)
@@ -255,6 +255,9 @@ int main()
         cout << stateMachine.nodesNames[i] << "\t";
     cout << endl;
 
+	//TODO удаляем начальное , конечное состояние
+	//и состояние обладающее свойствами обоих, у нас оно оказалось вторым
+	//хардкод, нужно сделать поиск этого состояния
     minimizationVertical.erase(minimizationVertical.begin(),
         minimizationVertical.begin() + 3);
     minimizationVertical.erase(minimizationVertical.end() - 1);
@@ -282,16 +285,19 @@ int main()
     graphTable minimizedStateMachineTable(minimizedStateMachine, " ");
     minimizedStateMachineTable.toTexFile("minimizedStateMachineTable.txt");
 
-    //minimizedStateMachine.placingStates(31, std::vector<int>({0, 31, 6, 1, 0}));
-    minimizedStateMachine.placingStates(std::vector<unsigned>({ 0, 1, 2, 4, 3, 9, 11, 10, 7, 8, 14, 6, 5, 13, 12, 15, }));
+    //minimizedStateMachine.placingStates(/*31, std::vector<unsigned>({0, 21, 7, 1, 1, })*/);
+    minimizedStateMachine.placingStates(std::vector<unsigned>({ 0, 1, 2, 3, 6, 8, 4, 15, 7, 9, 5, 10, 14, 13, 12, 11, }));
     minimizedStateMachine.toCubeDotFile("cubeMinimizedStateMachine.dot");
+
+
+	system("pause");
 
     std::vector<triggerTable> triggers;
 
     triggerFromDTableToTex("triggerConvertionTable.txt");
 
     triggers.push_back(triggerTable(minimizedStateMachine));
-    triggers.back().toTexFiles("triggersTables//" + triggers.back().triggerName + "_triggerTable.txt");
+    triggers.back().toTexFiles(".//triggersTables//" + triggers.back().triggerName + "_triggerTable.txt");
     triggers.back().toDotFiles(".//triggerCubes//" + triggers.back().triggerName);
     triggerTable triggerInv(triggers.back());
     triggerInv.invertion();
