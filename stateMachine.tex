@@ -1,0 +1,1214 @@
+\documentclass[a4paper,14pt,russian]{extarticle} %размер бумаги устанавливаем А4, шрифт 12пунктов
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}%включаем свою кодировку: koi8-r или utf8 в UNIX, cp1251 в Windows
+\usepackage[main=russian,english]{babel} 
+
+\usepackage{pscyr}
+
+\usepackage[pdftex]{graphicx}
+
+\graphicspath{{images/}}
+\usepackage{epstopdf}
+
+\usepackage{rotating}
+
+\usepackage{epsfig}
+
+\usepackage{adjustbox}
+
+\usepackage{amstext}
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+
+\usepackage{euscript}    % Шрифт Евклид
+\usepackage{mathrsfs}    % Красивый матшрифт
+\usepackage{mathtext} 
+
+\usepackage{lscape}
+
+\usepackage{makecell}
+
+\usepackage{multirow}
+
+\usepackage{ulem}
+
+\usepackage{indentfirst}
+
+\usepackage{titlesec}
+
+\usepackage{fancyhdr}
+
+\usepackage{ragged2e}
+
+\usepackage{booktabs}
+
+\usepackage{caption, threeparttable}
+	
+%\usepackage{floatrow}
+
+\usepackage{float}
+
+\usepackage[tablename = Таблица]{caption}
+\usepackage[figurename = Рисунок]{caption}
+
+%\usepackage{graphviz}
+
+%\usepackage{tikz}
+%\usetikzlibrary{shapes,arrows}
+%\usepackage{dot2texi}
+%\makeatletter
+%\@ifundefined{verbatim@out}{\newwrite\verbatim@out}{}
+%\makeatother
+
+
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=3cm}% левое поле
+\geometry{right=1.5cm}% правое поле
+\geometry{top=2cm}% верхнее поле
+\geometry{bottom=2cm}% нижнее поле
+
+%\renewcommand{\rmdefault}{ftm}
+\renewcommand{\baselinestretch}{1.5}
+\renewcommand{\theenumi}{\arabic{enumi}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumi}{\arabic{enumi}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumii}{.\arabic{enumii}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumiii}{.\arabic{enumiii}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}% Меняем везде перечисления на цифра.цифра
+
+\makeatletter
+\newsavebox\myboxA
+\newsavebox\myboxB
+\newlength\mylenA
+
+\newcommand*\xoverline[2][0.75]{%
+	\sbox{\myboxA}{$\m@th#2$}%
+	\setbox\myboxB\null% Phantom box
+	\ht\myboxB=\ht\myboxA%
+	\dp\myboxB=\dp\myboxA%
+	\wd\myboxB=#1\wd\myboxA% Scale phantom
+	\sbox\myboxB{$\m@th\overline{\copy\myboxB}$}%  Overlined phantom
+	\setlength\mylenA{\the\wd\myboxA}%   calc width diff
+	\addtolength\mylenA{-\the\wd\myboxB}%
+	\ifdim\wd\myboxB<\wd\myboxA%
+	\rlap{\hskip 0.5\mylenA\usebox\myboxB}{\usebox\myboxA}%
+	\else
+	\hskip -0.5\mylenA\rlap{\usebox\myboxA}{\hskip 0.5\mylenA\usebox\myboxB}%
+	\fi}
+\makeatother
+
+
+%маленькая коньюнкция
+%\newcommand\smvee{\raise0.9ex$\scriptscriptstyle\vee$}}
+
+% Настройка заголовка
+\titleformat{\section}
+{\large}
+{\thesection}
+{1ex}{}
+\titlespacing*{\section}{\parindent}{*1}{*1}
+
+%Настройка номера страницы 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%Положение подписи к таблице 
+\captionsetup[table]{justification = raggedleft, singlelinecheck = off}
+\captionsetup[table]{belowskip=0pt,aboveskip=4pt}
+%Положение подписи к рисунку
+%\captionsetup[figure]{justification = raggedleft, singlelinecheck = off}
+\captionsetup[figure]{belowskip=-10pt,aboveskip=-14pt}
+
+\DeclareCaptionLabelSeparator{dash}{ \textendash\ }
+\captionsetup{
+	labelsep=dash
+}
+
+%расстояние до картинки 
+%\setlength\intextsep{1.25\baselineskip plus 0pt minus 20 pt}
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\begin{document}
+	%\tableofcontents % это оглавление, которое генерируется автоматически
+	
+\begin{titlepage}
+\newpage
+
+\begin{center}
+ Санкт-Петербургский Политехнический университет Петра Великого \\
+ Институт компьютерных наук и технологий \\*
+ Кафедра компьютерных систем и программных технологий \\*
+%\hrulefill
+\end{center}
+
+\vspace{15em}
+
+\begin{center}
+\large
+Курсовая работа \\ 
+Дисциплина: Теория логического проектирования \\
+Тема: Логическое проектирование автомата, распознающего формальный язык
+\end{center}
+
+\vspace{2em}
+
+\begin{flushleft}
+\hspace{2em}	
+Выполнил: студент гр. 53501/2 \hfill 
+Илларионов Ю. С.  
+\hrulefill 	\\
+\vspace{1.5em}
+\hspace{2em} Руководитель: д.т.н., профессор \hfill 
+Мараховский В. Б.
+\hrulefill 	\\
+\end{flushleft}
+
+\vspace{\fill}
+
+\begin{center}
+Санкт – Петербург \\
+2016
+\end{center}
+
+\end{titlepage}
+
+\section {Индивидуальное задание}
+Исходными данными для курсовой работы является формальная грамматика \(G = <V_t, V_n, S, R>\), где \(V_t = \{ c_1, c_2, ... ,c_18 \} \) \textendash\ терминальный словарь; \(V_n = \{ S, A, B, C, D, E, F \} \) \textendash\ нетерминальный словарь; \(S \in V_n\) \textendash\ начальный символ грамматики; \(R\) \textendash\ множество правил вывода: 
+\begin{center}
+	\({S_{}}\rightarrow{{c_{1}}{c_{2}}{c_{3}} {A_{}}}\);
+	\({S_{}}\rightarrow{{c_{1}}{c_{4}}{c_{5}} {B_{}}}\);
+	\({S_{}}\rightarrow{{c_{6}} {C_{}}}\);
+	\({S_{}}\rightarrow{{c_{7}} {F_{}}}\);
+	
+	\({A_{}}\rightarrow{{c_{8}} {D_{}}}\);
+	\({A_{}}\rightarrow{{c_{9}}}\);
+	\({B_{}}\rightarrow{{c_{8}} {E_{}}}\);
+	\({B_{}}\rightarrow{{c_{9}}}\);
+	\({C_{}}\rightarrow{{c_{8}} {E_{}}}\);
+	\({C_{}}\rightarrow{{c_{9}}}\);
+	
+	\({D_{}}\rightarrow{{c_{10}} {S_{}}}\);
+	\({D_{}}\rightarrow{{c_{11}}}\);
+	\({E_{}}\rightarrow{{c_{11}} {S_{}}}\);
+	\({E_{}}\rightarrow{{c_{11}}}\);
+	
+	\({F_{}}\rightarrow{{c_{12}}{c_{13}}{c_{14}}{c_{15}}}\);
+	\({F_{}}\rightarrow{{c_{16}}{c_{13}}{c_{14}}{c_{15}}}\);
+	\({F_{}}\rightarrow{{c_{17}}{c_{18}}{c_{15}}}\);
+\end{center} 
+Кроме того, в соответствие терминальному словарю \(V_t\) ставится терминальный словарь \(\{ s_1, s_2, ... ,s_18 \} \), элементы которого составляются из имени фамилии и отчества студента (первая и вторая строки таблицы 1).
+
+\begin{table}[H]	
+	\centering	
+	\centering	
+	\begin{threeparttable}
+	\renewcommand{\arraystretch}{0.85}
+	\renewcommand{\tabcolsep}{0.3em}	 
+	\caption{}	
+	\label{tab:student_name}
+		\begin{tabular}{| c || c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |}
+			\hline
+			\(c_i\) & \({c_{1}}\)  & \({c_{2}}\)  & \({c_{3}}\)  & \({c_{4}}\)  & \({c_{5}}\)  & \({c_{6}}\)  & \({c_{7}}\)  & \({c_{8}}\)  & \({c_{9}}\)  & \({c_{10}}\)  & \({c_{11}}\)  & \({c_{12}}\)  & \({c_{13}}\)  & \({c_{14}}\)  & \({c_{15}}\)  & \({c_{16}}\)  & \({c_{17}}\)  & \({c_{18}}\)  \\ \hline
+			\(s_i\) & и  & л  & л  & а  & р  & и  & о  & н  & о  & в  &    & ю  & л  & и  & й  &    & с  & е  \\ \hline
+			\(x_i\) & \({x_{3}}\)  & \({x_{0}}\)  & \({x_{0}}\)  & \({x_{1}}\)  & \({x_{0}}\)  & \({x_{3}}\)  & \({x_{4}}\)  & \({x_{7}}\)  & \({x_{4}}\)  & \({x_{2}}\)  & \({x_{5}}\)  & \({x_{3}}\)  & \({x_{0}}\)  & \({x_{3}}\)  & \({x_{0}}\)  & \({x_{5}}\)  & \({x_{4}}\)  & \({x_{6}}\)  \\ \hline
+		\end{tabular}			
+	\end{threeparttable}
+\end{table}	
+
+Данную грамматику необходимо привести к виду \(G' = <V_t', V_n, S, R'>\), где \(V_t' = \{ x_1, x_2, ... ,x_{18} \} \) \textendash\ новый терминальный словарь, а \(R'>\) \textendash\ множество правил вывода, получаемых из заданных заменой символов из алфавита \(V_t\) символами из алфавита \(V_t'\) (последняя строка таблицы 1) в соответствии с таблицами \ref{tab:student_name} и \ref{tab:russian_alphabet}. 
+
+\begin{table}[H]
+	\centering	
+	\begin{threeparttable}
+	\renewcommand{\arraystretch}{0.85}
+	\renewcommand{\tabcolsep}{0.4em}	 
+	\caption{}	
+	\label{tab:russian_alphabet}
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			а & б & в & г & д & е & ж & з & и & й & к & л & м & н & о & п \\ \hline
+			\({x_{1}}\) & \({x_{5}}\) & \({x_{2}}\) & \({x_{4}}\) & \({x_{6}}\) & \({x_{6}}\) & \({x_{4}}\) & \({x_{3}}\) & \({x_{3}}\) & \({x_{0}}\) & \({x_{7}}\) & \({x_{0}}\) & \({x_{3}}\) & \({x_{7}}\) & \({x_{4}}\) & \({x_{5}}\) \\ \hline
+			р & с & т & у & ф & х & ц & ч & ш & щ & ы & ь & э & ю & я &   \\ \hline
+			\({x_{0}}\) & \({x_{4}}\) & \({x_{5}}\) & \({x_{7}}\) & \({x_{2}}\) & \({x_{5}}\) & \({x_{1}}\) & \({x_{2}}\) & \({x_{2}}\) & \({x_{0}}\) & \({x_{1}}\) & \({x_{6}}\) & \({x_{1}}\) & \({x_{3}}\) & \({x_{7}}\) & \({x_{5}}\) \\ \hline
+		\end{tabular}	
+	\end{threeparttable}	
+\end{table}
+
+После замены получаем следующее множество правил вывода:
+\begin{center}
+	\({S_{}}\rightarrow{{x_{3}}{x_{0}}{x_{0}} {A_{}}}\);
+	\({S_{}}\rightarrow{{x_{3}}{x_{1}}{x_{0}} {B_{}}}\);
+	\({S_{}}\rightarrow{{x_{3}} {C_{}}}\);
+	\({S_{}}\rightarrow{{x_{4}} {F_{}}}\);
+	
+	\({A_{}}\rightarrow{{x_{7}} {D_{}}}\);
+	\({A_{}}\rightarrow{{x_{4}}}\);
+	\({B_{}}\rightarrow{{x_{7}} {E_{}}}\);
+	\({B_{}}\rightarrow{{x_{4}}}\);
+	\({C_{}}\rightarrow{{x_{7}} {E_{}}}\);
+	\({C_{}}\rightarrow{{x_{4}}}\);
+	
+	\({D_{}}\rightarrow{{x_{2}} {S_{}}}\);
+	\({D_{}}\rightarrow{{x_{5}}}\);
+	\({E_{}}\rightarrow{{x_{5}} {S_{}}}\);
+	\({E_{}}\rightarrow{{x_{5}}}\);
+	
+	\({F_{}}\rightarrow{{x_{3}}{x_{0}}{x_{3}}{x_{0}}}\);
+	\({F_{}}\rightarrow{{x_{5}}{x_{0}}{x_{3}}{x_{0}}}\);
+	\({F_{}}\rightarrow{{x_{4}}{x_{6}}{x_{0}}}\);
+\end{center}
+
+\section {Переход от праволинейной грамматики к автоматной}
+Переход от имеющейся праволинейной грамматики \(G'\) к автоматной грамматике производится путем расширения нетерминального словаря. Для каждого правила вывода, если оно содержит более одного символа терминального словаря, заменяем все символы находящиеся справа от первого символа терминального словаря на новый символ нетерминального словаря. В результате получаем следующе множество правил вывода \(R''\):
+\begin{center}
+	\({S_{}}\rightarrow{{x_{3}} {S_{1}}}\);
+	\({S_{1}}\rightarrow{{x_{0}} {S_{2}}}\);
+	\({S_{2}}\rightarrow{{x_{0}} {A_{}}}\);
+	\({S_{}}\rightarrow{{x_{3}} {S_{3}}}\);
+	\({S_{3}}\rightarrow{{x_{1}} {S_{4}}}\);
+	\({S_{4}}\rightarrow{{x_{0}} {B_{}}}\);
+	\({S_{}}\rightarrow{{x_{3}} {C_{}}}\);
+	\({S_{}}\rightarrow{{x_{4}} {F_{}}}\);
+	\({A_{}}\rightarrow{{x_{7}} {D_{}}}\);
+	\({A_{}}\rightarrow{{x_{4}}}\);
+	\({B_{}}\rightarrow{{x_{7}} {E_{}}}\);
+	\({B_{}}\rightarrow{{x_{4}}}\);
+	\({C_{}}\rightarrow{{x_{7}} {E_{}}}\);
+	\({C_{}}\rightarrow{{x_{4}}}\);
+	\({D_{}}\rightarrow{{x_{2}} {S_{}}}\);
+	\({D_{}}\rightarrow{{x_{5}}}\);
+	\({E_{}}\rightarrow{{x_{5}} {S_{}}}\);
+	\({E_{}}\rightarrow{{x_{5}}}\);
+	\({F_{}}\rightarrow{{x_{3}} {F_{1}}}\);
+	\({F_{1}}\rightarrow{{x_{0}} {F_{2}}}\);
+	\({F_{2}}\rightarrow{{x_{3}} {F_{3}}}\);
+	\({F_{3}}\rightarrow{{x_{0}}}\);
+	\({F_{}}\rightarrow{{x_{5}} {F_{4}}}\);
+	\({F_{4}}\rightarrow{{x_{0}} {F_{5}}}\);
+	\({F_{5}}\rightarrow{{x_{3}} {F_{6}}}\);
+	\({F_{6}}\rightarrow{{x_{0}}}\);
+	\({F_{}}\rightarrow{{x_{4}} {F_{7}}}\);
+	\({F_{7}}\rightarrow{{x_{6}} {F_{8}}}\);
+	\({F_{8}}\rightarrow{{x_{0}}}\);
+\end{center}
+В результате получаем расширенный нетерминальный словарь \(V_n'\) = \{\({S_{}}\), \({S_{1}}\), \({S_{2}}\), \({S_{3}}\), \({S_{4}}\), \({A_{}}\), \({B_{}}\), \({C_{}}\), \({D_{}}\), \({E_{}}\), \({F_{}}\), \({F_{1}}\), \({F_{2}}\), \({F_{3}}\), \({F_{4}}\), \({F_{5}}\), \({F_{6}}\), \({F_{7}}\), \({F_{8}}\)\}, 
+его мощность равна 19.
+
+\section {Построение недетерминированного конечного автомата}
+Рассмотрим недетерминированный конечный распознающий автомат \( A = \ <Q, X, \delta, q_0, q_k>\), где \(Q\) \textendash\ множество внутренних состояний; \(X\) \textendash\ входной алфавит; \(\delta\) \textendash\ отображение \(\delta:X\times Q\rightarrow P(Q)\); \(P(Q)\) \textendash\ множество подмножеств из \(Q\);  \(q_0 \in Q \)  \textendash\ начальное состояние; \(q_k \in Q \) \textendash\ заключительное состояние, \(q_k != q_0\). Заключительных состояний может быть несколько. 
+
+Зададим этот автомат следующим образом. Поставим в соответствие символам нетерминального словаря \(V_n'\) состояния автомата из \(Q\), в том числе нетерминалу \(S\) \textendash\ начальное состояние \(q_0\), и добавим заключительное состояние \(q_k\), в которое автомат должен попадать, если цепочка предъявляемых ему символов принадлежит \(L(G'')\). Таким образом можность множества \(Q\) на единицу больше можности множества \(V_n\) и равна 20.
+Правилам перехода поставим в  соответствие таблицу переходов недетерминированнного конечного автомата (таблица \ref{tab:state_machine} ). Пустые клетки таблицы соответсвуют заперещенным последовательностям входных символов, т.е. состоянию ошибки конечного автомата.  
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}	
+	\caption{переходы недетерминированного автомата}	
+	\renewcommand{\arraystretch}{0.6}
+	\renewcommand{\tabcolsep}{0.9em}	
+	\label{tab:state_machine} 
+		\begin{tabular}{| l | c |c |c |c |c |c |c |c |}
+			\hline
+			& \({x_{0}}\) & \({x_{1}}\) & \({x_{2}}\) & \({x_{3}}\) & \({x_{4}}\) & \({x_{5}}\) & \({x_{6}}\) & \({x_{7}}\) \\ \hline
+			\({q_{0}}\) & \(\) & \(\) & \(\) & \({q_{7}}\) & \({q_{10}}\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{1}}\) & \({q_{2}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{2}}\) & \({q_{5}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{3}}\) & \(\) & \({q_{4}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{4}}\) & \({q_{6}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{5}}\) & \(\) & \(\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) & \({q_{8}}\) \\ \hline
+			\({q_{6}}\) & \(\) & \(\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) & \({q_{9}}\) \\ \hline
+			\({q_{7}}\) & \(\) & \(\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) & \({q_{9}}\) \\ \hline
+			\({q_{8}}\) & \(\) & \(\) & \({q_{0}}\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) \\ \hline
+			\({q_{9}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) \\ \hline
+			\({q_{10}}\) & \(\) & \(\) & \(\) & \({q_{11}}\) & \({q_{17}}\) & \({q_{14}}\) & \(\) & \(\) \\ \hline
+			\({q_{11}}\) & \({q_{12}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{12}}\) & \(\) & \(\) & \(\) & \({q_{13}}\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{13}}\) & \({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{14}}\) & \({q_{15}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{15}}\) & \(\) & \(\) & \(\) & \({q_{16}}\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{16}}\) & \({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{17}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \({q_{18}}\) & \(\) \\ \hline
+			\({q_{18}}\) & \({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+		\end{tabular}		
+\end{threeparttable}
+\end{table}	
+
+\newpage
+
+На основе таблицы переходов построим граф переходов конечного автомата (рисунок \ref{fig:state_machine}).
+\begin{figure}[H]	
+\centering
+\includegraphics[width=0.9\textwidth]{stateMachine.pdf}
+\caption{Граф переходов недетерминированного автомата}
+\label{fig:state_machine}
+\end{figure}
+
+\section {Сведение автомата к детерминированному}
+Найдем детерминированный автомат, эквивалентный данному недетерминированному. Для этого, найдем состояния, переход в которые происходит из одного состояния по одной переменной. Объединим такие состояния в одно и, если все объединямые состояния имеют по одной входной дуге, удалим их. Например из состояния \(q_0\) осуществляется три перехода по переменной \(x_3\) в состояния \(q_1\), \(q_3\), \(q_7\), которые имеют только по одной входной дуге. Соответственно эти состояния заменяем на одно объединенное \(q_{1,3,7}\). В результате выполнения описанных выше преобразований для всего графа переходов получаем граф переходов детерминированного автомата изображенный на рисунке \ref{fig:state_machine_determ}. Переходы детерминированного автомата также описаны в таблице \ref{tab:state_machine_determ}.    
+
+\begin{sidewaysfigure}
+	\includegraphics[width=\columnwidth]{stateMachineDeterminated.pdf}%
+	\caption{Граф переходов детерминированного автомата}
+	\label{fig:state_machine_determ}
+\end{sidewaysfigure}
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}	
+		\caption{переходы детерминированного автомата}	
+		\renewcommand{\arraystretch}{0.7}
+		\renewcommand{\tabcolsep}{0.9em}	
+		\label{tab:state_machine_determ} 
+		\begin{tabular}{| l | c |c |c |c |c |c |c |c |}
+			\hline
+			& \({x_{0}}\) & \({x_{1}}\) & \({x_{2}}\) & \({x_{3}}\) & \({x_{4}}\) & \({x_{5}}\) & \({x_{6}}\) & \({x_{7}}\) \\ \hline
+			\({q_{0}}\) & \(\) & \(\) & \(\) & \({q_{1,3,7}}\) & \({q_{10}}\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{0,19}}\) & \(\) & \(\) & \(\) & \({q_{1,3,7}}\) & \({q_{10}}\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{1,3,7}}\) & \({q_{2}}\) & \({q_{4}}\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) & \({q_{9}}\) \\ \hline
+			\({q_{2}}\) & \({q_{5}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{4}}\) & \({q_{6}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{5}}\) & \(\) & \(\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) & \({q_{8}}\) \\ \hline
+			\({q_{6}}\) & \(\) & \(\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) & \({q_{9}}\) \\ \hline
+			\({q_{8}}\) & \(\) & \(\) & \({q_{0}}\) & \(\) & \(\) & \({q_{19}}\) & \(\) & \(\) \\ \hline
+			\({q_{9}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \({q_{0,19}}\) & \(\) & \(\) \\ \hline
+			\({q_{10}}\) & \(\) & \(\) & \(\) & \({q_{11}}\) & \({q_{17}}\) & \({q_{14}}\) & \(\) & \(\) \\ \hline
+			\({q_{11}}\) & \({q_{12}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{12}}\) & \(\) & \(\) & \(\) & \({q_{13}}\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{13}}\) & \({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{14}}\) & \({q_{15}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{15}}\) & \(\) & \(\) & \(\) & \({q_{16}}\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{16}}\) & \({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{17}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \({q_{18}}\) & \(\) \\ \hline
+			\({q_{18}}\) & \({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({q_{19}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+		\end{tabular}			
+	\end{threeparttable}
+\end{table}	
+
+\section {Минимизация автомата}
+Построение минимального по числу переходов автомата, эквивалентного полученному в предыдущем разделе полностью детерминированному конечному автомату, произведем в два этапа.
+
+Во-первых, найдем разбиение состояний автомата на классы эквивалентности. Для этого составим треугольную таблицу (таблица \ref{tab:minimization_table_first}), клетки которой соответствуют всем парам (\(q_i\), \(q_i\)), \(i \neq j\) рабочих состояний, к которым относятся все состояния автомата за исключением: начального состояния, конечного состояния, состояния ошибки и состояния, обладающего свойствами начального и конечного состояний. 
+
+%\begin{adjustbox}{angle=90}
+%\begin{table}[H]
+	\begin{sidewaystable}			
+		\centering		
+		\caption{Треугольная таблица пар состояний}	
+		%\renewcommand{\arraystretch}{0.6}
+		\renewcommand{\tabcolsep}{0.6em}	
+		\label{tab:minimization_table_first} 
+		\begin{tabular}{l c c c c c c c c c c c c c c c }
+			\cline{2-2}
+			\multicolumn{1}{l|}{\({q_{2}}\)}& \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-3}
+			\multicolumn{1}{l|}{\({q_{4}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{6}}\), \({q_{5}}\)} \\ \cline{2-4}
+			\multicolumn{1}{l|}{\({q_{5}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-5}
+			\multicolumn{1}{l|}{\({q_{6}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{9}}\), \({q_{8}}\)} \\ \cline{2-6}
+			\multicolumn{1}{l|}{\({q_{8}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-7}
+			\multicolumn{1}{l|}{\({q_{9}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-8}
+			\multicolumn{1}{l|}{\({q_{10}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-9}
+			\multicolumn{1}{l|}{\({q_{11}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{12}}\), \({q_{5}}\)} & \multicolumn{1}{c|}{\({q_{12}}\), \({q_{6}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-10}
+			\multicolumn{1}{l|}{\({q_{12}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-11}
+			\multicolumn{1}{l|}{\({q_{13}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{5}}\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{6}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{12}}\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-12}
+			\multicolumn{1}{l|}{\({q_{14}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{15}}\), \({q_{5}}\)} & \multicolumn{1}{c|}{\({q_{15}}\), \({q_{6}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{15}}\), \({q_{12}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{15}}\), \({q_{19}}\)} \\ \cline{2-13}
+			\multicolumn{1}{l|}{\({q_{15}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{16}}\), \({q_{13}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-14}
+			\multicolumn{1}{l|}{\({q_{16}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{5}}\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{6}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{12}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\leftrightarrow\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{15}}\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-15}
+			\multicolumn{1}{l|}{\({q_{17}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-16}
+			\multicolumn{1}{l|}{\({q_{18}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{5}}\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{6}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{12}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\leftrightarrow\)} & \multicolumn{1}{c|}{\({q_{19}}\), \({q_{15}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\leftrightarrow\)} & \multicolumn{1}{c|}{\(\times\)} \\ 
+			\cline{2-16}
+			& \({q_{1,3,7}}\)& \({q_{2}}\)& \({q_{4}}\)& \({q_{5}}\)& \({q_{6}}\)& \({q_{8}}\)& \({q_{9}}\)& \({q_{10}}\)& \({q_{11}}\)& \({q_{12}}\)& \({q_{13}}\)& \({q_{14}}\)& \({q_{15}}\)& \({q_{16}}\)& \({q_{17}}\)
+		\end{tabular}
+	\end{sidewaystable}
+%\end{table}	
+%\end{adjustbox}
+
+\begin{sidewaystable}			
+	\centering		
+	\caption{Треугольная таблица пар состояний}	
+	%\renewcommand{\arraystretch}{0.6}
+	\renewcommand{\tabcolsep}{0.6em}	
+	\label{tab:minimization_table_second} 
+	\begin{tabular}{l c c c c c c c c c c c c c c c }
+		\cline{2-2}
+		\multicolumn{1}{l|}{\({q_{2}}\)}& \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-3}
+		\multicolumn{1}{l|}{\({q_{4}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-4}
+		\multicolumn{1}{l|}{\({q_{5}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-5}
+		\multicolumn{1}{l|}{\({q_{6}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-6}
+		\multicolumn{1}{l|}{\({q_{8}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-7}
+		\multicolumn{1}{l|}{\({q_{9}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-8}
+		\multicolumn{1}{l|}{\({q_{10}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-9}
+		\multicolumn{1}{l|}{\({q_{11}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-10}
+		\multicolumn{1}{l|}{\({q_{12}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-11}
+		\multicolumn{1}{l|}{\({q_{13}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-12}
+		\multicolumn{1}{l|}{\({q_{14}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{15}}\), \({q_{12}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-13}
+		\multicolumn{1}{l|}{\({q_{15}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\({q_{16}}\), \({q_{13}}\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-14}
+		\multicolumn{1}{l|}{\({q_{16}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\leftrightarrow\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-15}
+		\multicolumn{1}{l|}{\({q_{17}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} \\ \cline{2-16}
+		\multicolumn{1}{l|}{\({q_{18}}\)}& \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\leftrightarrow\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\times\)} & \multicolumn{1}{c|}{\(\leftrightarrow\)} & \multicolumn{1}{c|}{\(\times\)} \\ 
+		\cline{2-16}
+		& \({q_{1,3,7}}\)& \({q_{2}}\)& \({q_{4}}\)& \({q_{5}}\)& \({q_{6}}\)& \({q_{8}}\)& \({q_{9}}\)& \({q_{10}}\)& \({q_{11}}\)& \({q_{12}}\)& \({q_{13}}\)& \({q_{14}}\)& \({q_{15}}\)& \({q_{16}}\)& \({q_{17}}\)
+	\end{tabular}
+\end{sidewaystable}	
+
+Заполнение таблицы будем производить по алгоритму описанному в методическом пособии к курсовой работе. После заполнения таблицы \ref{tab:minimization_table_first}) просматриваются невычеркнутые клетки, и если хотя бы одной паре состояний, записанной в просматриваемой клетке, соответствует вычеркнутая клетка таблицы или такой клетки не существует, то просматриваемая клетка вычеркивается. Процедура может повторяться многократно и завершается, когда больше нельзя вычеркнуть ни одной из оставшихся клеток (таблица \ref{tab:minimization_table_second}). Координаты оставшихся в таблице клеток соответсвуют парам эквивалентных состояний.
+
+Класс эквивалентности образуется состояниями, которые являются попарно эквивалентными. В данной работе получаем следующие пары эвквивалетных состояний:
+(\({q_{14}}\), \({q_{11}}\)), 
+(\({q_{15}}\), \({q_{12}}\)), 
+(\({q_{16}}\), \({q_{13}}\)), 
+(\({q_{18}}\), \({q_{13}}\)), 
+(\({q_{18}}\), \({q_{16}}\)). 
+Они образуют следующие классы эквивалентности:
+\{\({q_{11}}\), \({q_{14}}\)\},
+\{\({q_{12}}\), \({q_{15}}\)\},
+\{\({q_{13}}\), \({q_{16}}\), \({q_{18}}\)\}.
+Все другие состояния, не вошедшие в эти классы, эквивалентны сами себе и образуют индивидуальные классы. В результате получаем следующие классы эквивалентности:
+\{\({q_{0}}\)\},
+\{\({q_{0,19}}\)\},
+\{\({q_{1,3,7}}\)\},
+\{\({q_{2}}\)\},
+\{\({q_{4}}\)\},
+\{\({q_{5}}\)\},
+\{\({q_{6}}\)\},
+\{\({q_{8}}\)\},
+\{\({q_{9}}\)\},
+\{\({q_{10}}\)\},
+\{\({q_{11}}\), \({q_{14}}\)\},
+\{\({q_{12}}\), \({q_{15}}\)\},
+\{\({q_{13}}\), \({q_{16}}\), \({q_{18}}\)\},
+\{\({q_{17}}\)\},
+\{\({q_{19}}\)\}.
+Всего пятнадцать классов эквивалентности, каждому из которых поставим в соответствие состояние минимального автомата. Таблица переходов минимального автомата в таблице \ref{tab:state_machine_min}. 
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}	
+		\caption{переходы минимального автомата}	
+		\renewcommand{\arraystretch}{0.7}
+		\renewcommand{\tabcolsep}{0.9em}	
+		\label{tab:state_machine_min} 
+		\begin{tabular}{| l | c |c |c |c |c |c |c |c |}
+			\hline
+			& \({x_{0}}\) & \({x_{1}}\) & \({x_{2}}\) & \({x_{3}}\) & \({x_{4}}\) & \({x_{5}}\) & \({x_{6}}\) & \({x_{7}}\) \\ \hline
+			\({r_{0}}\) & \(\) & \(\) & \(\) & \({r_{2}}\) & \({r_{9}}\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{1}}\) & \(\) & \(\) & \(\) & \({r_{2}}\) & \({r_{9}}\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{2}}\) & \({r_{3}}\) & \({r_{4}}\) & \(\) & \(\) & \({r_{14}}\) & \(\) & \(\) & \({r_{8}}\) \\ \hline
+			\({r_{3}}\) & \({r_{5}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{4}}\) & \({r_{6}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{5}}\) & \(\) & \(\) & \(\) & \(\) & \({r_{14}}\) & \(\) & \(\) & \({r_{7}}\) \\ \hline
+			\({r_{6}}\) & \(\) & \(\) & \(\) & \(\) & \({r_{14}}\) & \(\) & \(\) & \({r_{8}}\) \\ \hline
+			\({r_{7}}\) & \(\) & \(\) & \({r_{0}}\) & \(\) & \(\) & \({r_{14}}\) & \(\) & \(\) \\ \hline
+			\({r_{8}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \({r_{1}}\) & \(\) & \(\) \\ \hline
+			\({r_{9}}\) & \(\) & \(\) & \(\) & \({r_{10}}\) & \({r_{13}}\) & \({r_{10}}\) & \(\) & \(\) \\ \hline
+			\({r_{10}}\) & \({r_{11}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{11}}\) & \(\) & \(\) & \(\) & \({r_{12}}\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{12}}\) & \({r_{14}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+			\({r_{13}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \({r_{12}}\) & \(\) \\ \hline
+			\({r_{14}}\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) & \(\) \\ \hline
+		\end{tabular}
+	\end{threeparttable}		
+\end{table}	
+
+\begin{sidewaysfigure}
+	\includegraphics[width=\columnwidth]{stateMachineMinimized.pdf}
+	\caption{Граф переходов минимального автомата}
+	\label{fig:state_machine_min}
+\end{sidewaysfigure}
+
+На основе представленной таблицы переходов построим граф переходов минимального конечного автомата (рисунок \ref{fig:state_machine_min}). На этом графе \(r_0\) \textendash\ начальное состояние; \(r_1\) \textendash\ промежуточное состояние, обладающее свойствами начального и финального состояний; \(r_{14}\) \textendash\ финальное состояние. Состояния \(r_1\) и \(r_{14}\) выделены цветом с целью напоминания о том, что находясь в них, автомат должен вырабатывать сигнал принадлежности цепочки входных символов заданному языку. 
+
+\newpage
+\section {Размещение состояний автомата}
+Произведем кодирование (размещение) состояний автомата. Будем предполагать, что реализуемый автомат является синхронным. Для кодирования одного состояния автомата необходимо \(]\log_2 15[ \ = 4\) двоичных переменных. Соответсвенно каждому из состояний автомата можно поставить в соответствие число от \(0\) до \((2^4 \textendash\ 1)\). Переход между состояниями автомата будет сопровождаться изменением от \(1\) до \(4\) двочиных переменных. Данное количество изменяющихся переменных есть расстояние по Хеммингу между этими двумя состояниями. 
+
+Очевидно, что чем меньше внутренних переменных изменяется при каждом переходе автомата, тем меньше конституент единицы содержат их переключательные функции. В силу этого логично выбрать такое размещение имеющихся \(15\) состояний автомата на \(2^4\) возможных состояниях, при котором достигает минимума суммарное расстояние по Хэммингу для всех возможных переходов автомата. 
+
+Размещение состояния автомата будем производить программно. Для этого произведем перебор всех возможных размещений состояний автомата. Для каждого размещения будем считать суммарное расстояние по Хэммингу для всех пар состояний, между которыми возможен переход. Если полученный результат будет меньше предудущего минимума, будем запоминать его и соответсвующее ему рамещение. 
+
+Поскольку даже машинный перебор \(A_n^k\) вариантов требует очень больших временных затрат, ограничимся в переборе размещений первым вариантом у которого будет \(1\) переход с расстоянием по Хэммингу равным \(3\), \(5\) переходов с расстоянием равным \(2\) и остальные переходы с расстоянием равным \(1\). 
+Изобразим полученное размещение состояний автомата на четырехмерном гиперкубе (рисунок \ref{fig:state_machine_on_cube}).
+
+\begin{figure}[H]	
+	\centering
+	\includegraphics[width=\textwidth]{stateMachineMinimizedOnCube.pdf}
+	\caption{Размещение состояний минимального автомата}
+	\label{fig:state_machine_on_cube}
+\end{figure}
+
+\section {Структурный синтез автомата}
+Переходя к синтезу распознающего автомата необходимо условиться о способе его реализации. Уже выбрана синхронная модель. И описана комбинационная схема автомата (минимальный граф переходов). Помимо имеющихся входных символов \(x_0\) \textendash\ \(x_7\), все из которых являются занятыми необходимо добавить символ начальной установки автомата \(is=x_8\), которым начинается каждая новая входная последовательность. С целью упрощения процедуры синтеза и верификации автомата, добавим в состав автомата дешифратор (рисунок \ref{fig:decoder}), на вход которого будет подаваться двоичный эквивалент дестичного числа от \(0\) до \(8\), а на выходе будет появляется входной символ автомата с соответствующим индексом.
+
+Комбинационная схема автомата реализует функцию его переходов. Исходным заданием для ее построения является граф переходов (рисунок \ref{fig:state_machine_min}) или таблица переходов (таблица \ref{tab:state_machine_min}) минимального автомата и выбранный вариант кодирования состояний (рисунок \ref{fig:state_machine_on_cube}).  
+
+Построить функцию переходов \textendash\ значит найти переключательные функции кодирующих (внутренних) переменных.
+В соответствии со структурной схемой автомата, каждая внутренняя переменная представляется состоянием элемента памяти \textendash\ триггера. По переключательным функциям внутренних переменных могут быть найдены функции возбуждения соответствующих им триггеров.
+
+Сложность функций возбуждения существенно зависит от выбора типа триггера. Известны четыре основных типа триггеров: \(D, RS, T, JK\). Поскольку заранее невозможно отдать препочтение ни одному из типов, необходимо построить функции возбуждения для всех указанных типов триггеров (таблицы ). 
+
+Для каждой таблицы: в графе "Код"\ приведены все возможные наборы значений внутренних переменных \(z_1 z_2 z_3 z_4\), в графе "Символ"\ отмечены соответствующие наборам состояния. В клетках остальных столбцов указаны значения функциий возбуждения соответсвующих триггеров.
+
+Способ заполнения столбцов таблицы задания функций возбуждения \(D\) \textendash\ триггера (таблица \ref{tab:triggersD_RS}) описан в методическом пособии к курсовой работе. Функции возбуждения всех остальных триггеров формируются согласно таблице \ref{tab:triggersConversion}  из функций возбуждения \(D\) \textendash\ триггера.
+
+\begin{table}[H]
+	\centering
+	\begin{threeparttable}	
+		\caption{}	
+		\renewcommand{\arraystretch}{0.7}
+		\renewcommand{\tabcolsep}{0.7em}	
+		\label{tab:triggersConversion} 
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\(z_i\) & \(D_i\) & \(S_i\) & \(R_i\) & \(T_i\) & \(J_i\) & \(K_i\)\\ \hline
+			0 & 0 & 0 & * & 0 & 0 & * \\ \hline
+			1 & 0 & 0 & 1 & 1 & * & 1 \\ \hline
+			0 & 1 & 1 & 0 & 1 & 1 & * \\ \hline
+			1 & 1 & * & 0 & 0 & * & 0 \\ \hline
+			0 & \(\alpha\) & \(\alpha\) & 0 & \(\alpha\) & \(\alpha\) & * \\ \hline
+			1 & \(\alpha\) & 0 & \(\bar{\alpha}\) & \(\alpha\) & * & \(\bar{\alpha}\) \\ \hline
+			0 & * & * & * & * & * & * \\ \hline
+			1 & * & * & * & * & * & * \\ \hline
+		\end{tabular}
+	\end{threeparttable}
+\end{table}	
+
+\begin{sidewaystable}			
+	\centering		
+	\caption{Функции возбуждения \(D\) и \(RS\) триггеров}	
+	\renewcommand{\arraystretch}{0.8}
+	\renewcommand{\tabcolsep}{0.34em}	
+	\label{tab:triggersD_RS} 
+	\begin{tabular}{|c|c|c|c|c|c||c|c|c|c||c|c|c|c|}												
+		\hline														
+		Символ	& Код	& \multicolumn{12}{c|}{Функции возбуждения}	\\ \cline{2-14}											
+		&\({z_0}{z_1}{z_2}{z_3}\)	 &\({D_1}\)	 &\({D_2}\)	 &\({D_3}\)	 &\({D_4}\)	 &\({S_1}\)	 &\({S_2}\)	 &\({S_3}\)	 &\({S_4}\)	 &\({R_1}\)	 &\({R_2}\)	 &\({R_3}\)	 &\({R_4}\)	\\ \hline
+		\({r_{0}}\) & 	0 0 0 0 	 & \({x_{4}}\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \({x_{4}}\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{1}}\) & 	1 0 0 0 	 & \(\bar{x_{3}}\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \(0\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \({x_{3}}\)	 & \(0\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{2}}\) & 	0 1 0 0 	 & \({x_{1}}\vee{x_{7}}\)	 & \(\bar{x_{0}}\bar{x_{7}}\)	 & \({x_{0}}\)	 & \({x_{7}}\vee{x_{4}}\)	 & \({x_{1}}\vee{x_{7}}\)	 & \(0\)	 & \({x_{0}}\)	 & \({x_{7}}\vee{x_{4}}\)	 & \(0\)	 & \({x_{0}}\vee{x_{7}}\)	 & \(0\)	 & \(0\)	\\ \hline
+		\({r_{4}}\) & 	1 1 0 0 	 & \(1\)	 & \(1\)	 & \(0\)	 & \({x_{0}}\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(0\)	\\ \hline
+		\({r_{3}}\) & 	0 0 1 0 	 & \(0\)	 & \(0\)	 & \(1\)	 & \({x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \({x_{0}}\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \(0\)	\\ \hline
+		\({r_{9}}\) & 	1 0 1 0 	 & \(1\)	 & \({x_{3}}\vee{x_{5}}\)	 & \(1\)	 & \({x_{4}}\)	 & \(*\)	 & \({x_{3}}\vee{x_{5}}\)	 & \(*\)	 & \({x_{4}}\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(0\)	\\ \hline
+		\({r_{11}}\) & 	0 1 1 0 	 & \(0\)	 & \(1\)	 & \(1\)	 & \({x_{3}}\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \({x_{3}}\)	 & \(*\)	 & \(0\)	 & \(0\)	 & \(0\)	\\ \hline
+		\({r_{10}}\) & 	1 1 1 0 	 & \(\bar{x_{0}}\)	 & \(1\)	 & \(1\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{7}}\) & 	0 0 0 1 	 & \(0\)	 & \({x_{5}}\)	 & \(0\)	 & \(\bar{x_{2}}\)	 & \(0\)	 & \({x_{5}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \({x_{2}}\)	\\ \hline
+		\({r_{8}}\) & 	1 0 0 1 	 & \(1\)	 & \(0\)	 & \(0\)	 & \(\bar{x_{5}}\)	 & \(*\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \({x_{5}}\)	\\ \hline
+		\({r_{14}}\) & 	0 1 0 1 	 & \(0\)	 & \(1\)	 & \(0\)	 & \(1\)	 & \(0\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \(0\)	\\ \hline
+		\({r_{6}}\) & 	1 1 0 1 	 & \(\bar{x_{4}}\)	 & \(\bar{x_{7}}\)	 & \(0\)	 & \(1\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \({x_{4}}\)	 & \({x_{7}}\)	 & \(*\)	 & \(0\)	\\ \hline
+		\({r_{5}}\) & 	0 0 1 1 	 & \(0\)	 & \({x_{4}}\)	 & \(\bar{x_{7}}\bar{x_{4}}\)	 & \(1\)	 & \(0\)	 & \({x_{4}}\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{7}}\vee{x_{4}}\)	 & \(0\)	\\ \hline
+		\({r_{13}}\) & 	1 0 1 1 	 & \(\bar{x_{6}}\)	 & \({x_{6}}\)	 & \(1\)	 & \(1\)	 & \(0\)	 & \({x_{6}}\)	 & \(*\)	 & \(*\)	 & \({x_{6}}\)	 & \(0\)	 & \(0\)	 & \(0\)	\\ \hline
+		\({r_{12}}\) & 	0 1 1 1 	 & \(0\)	 & \(1\)	 & \(\bar{x_{0}}\)	 & \(1\)	 & \(0\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	\\ \hline
+		\(-\) & 	1 1 1 1 	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	\\ \hline
+		\multicolumn{2}{|c|}{\(O(f)\)} 
+		&  \(41+4\)	 & 	 \(34+4\)	 & 	 \(18+4\)	 & 	 \(34+4\)	 & 	 \(13+2\)	 & 	 \(23+2\)	 & 	 \(7+2\)	 & 	 \(24+2\)	 & 	 \(14+2\)	 & 	 \(14+2\)	 & 	 \(11+2\)	 & 	 \(10+2\)  
+		\\ \hline
+		\multicolumn{2}{|c|}{\(O(\xoverline f)\)} 
+		&   \(27+4\)	 & 	 \(43+4\)	 & 	 \(23+4\)	 & 	 \(39+4\)	 & 	 \(9+2\)	 & 	 \(22+2\)	 & 	 \(8+2\)	 & 	 \(23+2\)	 & 	 \(23+2\)	 & 	 \(9+2\)	 & 	 \(8+2\)	 & 	 \(8+2\) 
+		\\ \hline 
+		
+	\end{tabular}													
+\end{sidewaystable}	
+
+\begin{sidewaystable}			
+	\centering		
+	\caption{Функции возбуждения \(T\) и \(JK\) триггеров}	
+	\renewcommand{\arraystretch}{0.8}
+	\renewcommand{\tabcolsep}{0.35em}	
+	\label{tab:triggersT_JK} 												
+	\begin{tabular}{|c|c|c|c|c|c||c|c|c|c||c|c|c|c|}								
+		\hline														
+		Символ	& Код	& \multicolumn{12}{c|}{Функции возбуждения}	\\ \cline{2-14}											
+		&\({z_0}{z_1}{z_2}{z_3}\)	 &\({T_1}\)	 &\({T_2}\)	 &\({T_3}\)	 &\({T_4}\)	 &\({J_1}\)	 &\({J_2}\)	 &\({J_3}\)	 &\({J_4}\)	 &\({K_1}\)	 &\({K_2}\)	 &\({K_3}\)	 &\({K_4}\)	\\ \hline
+		\({r_{0}}\) & 	0 0 0 0 	 & \({x_{4}}\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \({x_{4}}\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	\\ \hline
+		\({r_{1}}\) & 	1 0 0 0 	 & \(\bar{x_{3}}\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \(*\)	 & \({x_{3}}\)	 & \({x_{4}}\)	 & \(0\)	 & \({x_{3}}\)	 & \(*\)	 & \(*\)	 & \(*\)	\\ \hline
+		\({r_{2}}\) & 	0 1 0 0 	 & \({x_{1}}\vee{x_{7}}\)	 & \(\bar{x_{0}}\bar{x_{7}}\)	 & \({x_{0}}\)	 & \({x_{7}}\vee{x_{4}}\)	 & \({x_{1}}\vee{x_{7}}\)	 & \(*\)	 & \({x_{0}}\)	 & \({x_{7}}\vee{x_{4}}\)	 & \(*\)	 & \({x_{0}}\vee{x_{7}}\)	 & \(*\)	 & \(*\)	\\ \hline
+		\({r_{4}}\) & 	1 1 0 0 	 & \(0\)	 & \(0\)	 & \(0\)	 & \({x_{0}}\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(*\)	\\ \hline
+		\({r_{3}}\) & 	0 0 1 0 	 & \(0\)	 & \(0\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \({x_{0}}\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{9}}\) & 	1 0 1 0 	 & \(0\)	 & \({x_{3}}\vee{x_{5}}\)	 & \(0\)	 & \({x_{4}}\)	 & \(*\)	 & \({x_{3}}\vee{x_{5}}\)	 & \(*\)	 & \({x_{4}}\)	 & \(0\)	 & \(*\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{11}}\) & 	0 1 1 0 	 & \(0\)	 & \(0\)	 & \(0\)	 & \({x_{3}}\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \({x_{3}}\)	 & \(*\)	 & \(0\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{10}}\) & 	1 1 1 0 	 & \(\bar{x_{0}}\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	\\ \hline
+		\({r_{7}}\) & 	0 0 0 1 	 & \(0\)	 & \({x_{5}}\)	 & \(0\)	 & \(\bar{x_{2}}\)	 & \(0\)	 & \({x_{5}}\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \({x_{2}}\)	\\ \hline
+		\({r_{8}}\) & 	1 0 0 1 	 & \(0\)	 & \(0\)	 & \(0\)	 & \(\bar{x_{5}}\)	 & \(*\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \({x_{5}}\)	\\ \hline
+		\({r_{14}}\) & 	0 1 0 1 	 & \(0\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \(0\)	\\ \hline
+		\({r_{6}}\) & 	1 1 0 1 	 & \(\bar{x_{4}}\)	 & \(\bar{x_{7}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \(*\)	 & \({x_{4}}\)	 & \({x_{7}}\)	 & \(*\)	 & \(0\)	\\ \hline
+		\({r_{5}}\) & 	0 0 1 1 	 & \(0\)	 & \({x_{4}}\)	 & \(\bar{x_{7}}\bar{x_{4}}\)	 & \(0\)	 & \(0\)	 & \({x_{4}}\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \({x_{7}}\vee{x_{4}}\)	 & \(0\)	\\ \hline
+		\({r_{13}}\) & 	1 0 1 1 	 & \(\bar{x_{6}}\)	 & \({x_{6}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \({x_{6}}\)	 & \(*\)	 & \(*\)	 & \({x_{6}}\)	 & \(*\)	 & \(0\)	 & \(0\)	\\ \hline
+		\({r_{12}}\) & 	0 1 1 1 	 & \(0\)	 & \(0\)	 & \(\bar{x_{0}}\)	 & \(0\)	 & \(0\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(0\)	 & \({x_{0}}\)	 & \(0\)	\\ \hline
+		\(-\) & 	1 1 1 1 	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	 & \(*\)	\\ \hline
+		\multicolumn{2}{|c|}{\(O(f)\)}
+		& \(33+1\)	 & 	 \(37+1\)	 & 	 \(19+1\)	 & 	 \(40+1\)	 & 	 \(12+2\)	 & 	 \(22+2\)	 & 	 \(7+2\)	 & 	 \(24+2\)	 & 	 \(16+2\)	 & 	 \(11+2\)	 & 	 \(11+2\)	 & 	 \(8+2\)	
+		\\ \hline
+		\multicolumn{2}{|c|}{\(O(\xoverline f)\)} 
+		& \(35+1\)	 & 	 \(34+1\)	 & 	 \(24+1\)	 & 	 \(36+1\)	 & 	 \(8+2\)	 & 	 \(19+2\)	 & 	 \(8+2\)	 & 	 \(22+2\)	 & 	 \(22+2\)	 & 	 \(8+2\)	 & 	 \(8+2\)	 & 	 \(7+2\)
+		 \\ \hline
+		
+	\end{tabular}														
+\end{sidewaystable}	
+
+\section {Структурный синтез автомата}
+После задания функций возбуждения всех триггеров необходимо выполнить этап их  минимизации. Для нахождения дизъюнктивных нормальных форм функций возбуждения воспользуемся их геометрическим пердставлением на гиперкубе (рисунки \ref{fig:triggersD1} \textendash\ \ref{fig:triggersK4}).
+
+Размерность гиперкуба равна числу внутренних переменных, кодирующих состояния автомата. Вершины гиперкуба могут быть четырех типов: черный кружок \textendash\ значение функции в вершине равно \(1\); белый кружок \textendash\ значение функции в вершине равно \(0\); звездочка означает произвольное определение функции в вершине; серый кружок означает что значение функции в вершине совпадает со значением логического выражения внутри кружка. Каждой вершине соответсвует свой набор внутренних переменных. Значение каждой переменной откладывается по своей оси (рисунок \ref{fig:coordinateSystem}). 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.55\textwidth]{coordinateSystem.png}
+	\caption{Направление осей внутренних переменных}
+	\label{fig:coordinateSystem}
+\end{figure}
+Алгоритм минимизации подробно описан в методическом пособии к курсовой работе. Полученные после минимизации дизъюнктивные нормальные формы функции записаны под изображениями соответствующих гиперкубов. 
+
+
+%Начало кубов
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/D1.pdf}
+	\caption{Геометрическое представление функции \({D_{1}}\)}
+	\label{fig:triggersD1}
+\end{figure}
+\({D_1} = {z_{1}}\xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{3}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{1}}{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{6}}{z_{1}}\xoverline{z_{2}}{z_{4}}\vee\xoverline{x_{4}}{z_{1}}\xoverline{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/D1.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{D_{1}}\)}
+	\label{fig:triggersND1}
+\end{figure}
+\(\xoverline{D_1} = \xoverline{z_{1}}{z_{3}}\vee\xoverline{z_{1}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{3}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{1}}\xoverline{x_{7}}\xoverline{z_{1}}{z_{2}}\vee{x_{0}}{z_{2}}{z_{3}}\vee{x_{4}}{z_{2}}{z_{4}}\vee{x_{6}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/D2.pdf}
+	\caption{Геометрическое представление функции \({D_{2}}\)}
+	\label{fig:triggersD2}
+\end{figure}
+\({D_2} = {z_{2}}{z_{3}}\vee{z_{1}}{z_{2}}\xoverline{z_{4}}\vee\xoverline{z_{1}}{z_{2}}{z_{4}}\vee{x_{3}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}\xoverline{x_{7}}{z_{2}}\vee{x_{3}}{z_{1}}\xoverline{z_{4}}\vee{x_{5}}{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{x_{5}}\xoverline{z_{1}}\xoverline{z_{3}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}{z_{3}}{z_{4}}\vee{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/D2.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{D_{2}}\)}
+	\label{fig:triggersND2}
+\end{figure}
+\(\xoverline{D_2} = \xoverline{z_{1}}\xoverline{z_{3}}{z_{3}}\xoverline{z_{4}}\vee{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{5}}\xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{5}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee{x_{7}}{z_{1}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}{z_{4}}\vee\xoverline{x_{6}}{z_{1}}\xoverline{z_{2}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/D3.pdf}
+	\caption{Геометрическое представление функции \({D_{3}}\)}
+	\label{fig:triggersD3}
+\end{figure}
+\({D_3} = {z_{3}}\xoverline{z_{4}}\vee{z_{1}}{z_{3}}\vee{x_{4}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{2}}{z_{3}}\vee\xoverline{x_{0}}{z_{2}}{z_{3}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/D3.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{D_{3}}\)}
+	\label{fig:triggersND3}
+\end{figure}
+\(\xoverline{D_3} = {z_{1}}{z_{2}}\xoverline{z_{3}}\vee\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\xoverline{z_{3}}\vee\xoverline{x_{0}}{z_{2}}\xoverline{z_{3}}\vee{x_{7}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{4}}\vee{x_{0}}{z_{2}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/D4.pdf}
+	\caption{Геометрическое представление функции \({D_{4}}\)}
+	\label{fig:triggersD4}
+\end{figure}
+\({D_4} = {z_{3}}{z_{4}}\vee{z_{2}}{z_{4}}\vee{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{4}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{0}}{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}\vee{x_{4}}{z_{1}}\xoverline{z_{2}}{z_{3}}\vee{x_{3}}\xoverline{z_{1}}{z_{2}}{z_{3}}\vee\xoverline{x_{2}}\xoverline{z_{1}}{z_{4}}\vee\xoverline{x_{5}}{z_{1}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/D4.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{D_{4}}\)}
+	\label{fig:triggersND4}
+\end{figure}
+\(\xoverline{D_4} = \xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{z_{1}}{z_{2}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{4}}{z_{1}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{3}}{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{x_{2}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee{x_{5}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/S1.pdf}
+	\caption{Геометрическое представление функции \({S_{1}}\)}
+	\label{fig:triggersS1}
+\end{figure}
+\({S_1} = {x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/S1.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{S_{1}}\)}
+	\label{fig:triggersNS1}
+\end{figure}
+\(\xoverline{S_1} = {z_{1}}\vee{z_{3}}\vee{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\vee\xoverline{x_{1}}\xoverline{x_{7}}{z_{2}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/S2.pdf}
+	\caption{Геометрическое представление функции \({S_{2}}\)}
+	\label{fig:triggersS2}
+\end{figure}
+\({S_2} = {x_{3}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{3}}{z_{1}}\xoverline{z_{4}}\vee{x_{5}}{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{x_{5}}\xoverline{z_{1}}\xoverline{z_{3}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}{z_{3}}{z_{4}}\vee{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/S2.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{S_{2}}\)}
+	\label{fig:triggersNS2}
+\end{figure}
+\(\xoverline{S_2} = \xoverline{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{z_{2}}\vee{z_{1}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{x_{5}}\xoverline{z_{4}}\vee\xoverline{x_{5}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}{z_{3}}{z_{4}}\vee\xoverline{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/S3.pdf}
+	\caption{Геометрическое представление функции \({S_{3}}\)}
+	\label{fig:triggersS3}
+\end{figure}
+\({S_3} = {x_{4}}\xoverline{z_{1}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/S3.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{S_{3}}\)}
+	\label{fig:triggersNS3}
+\end{figure}
+\(\xoverline{S_3} = {z_{1}}{z_{2}}\vee{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\vee\xoverline{x_{0}}{z_{2}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/S4.pdf}
+	\caption{Геометрическое представление функции \({S_{4}}\)}
+	\label{fig:triggersS4}
+\end{figure}
+\({S_4} = {x_{0}}{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{4}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}\vee{x_{4}}{z_{1}}\xoverline{z_{2}}{z_{3}}\vee{x_{3}}\xoverline{z_{1}}{z_{2}}{z_{3}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/S4.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{S_{4}}\)}
+	\label{fig:triggersNS4}
+\end{figure}
+\(\xoverline{S_4} = \xoverline{z_{2}}\xoverline{z_{3}}\vee{z_{1}}{z_{2}}{z_{3}}\vee\xoverline{x_{0}}{z_{1}}{z_{2}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee\xoverline{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}\vee\xoverline{x_{4}}{z_{1}}\xoverline{z_{2}}\vee\xoverline{x_{3}}{z_{2}}{z_{3}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/R1.pdf}
+	\caption{Геометрическое представление функции \({R_{1}}\)}
+	\label{fig:triggersR1}
+\end{figure}
+\({R_1} = {x_{3}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{0}}{z_{2}}{z_{3}}\vee{x_{4}}{z_{2}}{z_{4}}\vee{x_{6}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/R1.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{R_{1}}\)}
+	\label{fig:triggersNR1}
+\end{figure}
+\(\xoverline{R_1} = \xoverline{z_{1}}\vee\xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{6}}{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/R2.pdf}
+	\caption{Геометрическое представление функции \({R_{2}}\)}
+	\label{fig:triggersR2}
+\end{figure}
+\({R_2} = {x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}{z_{2}}\xoverline{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/R2.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{R_{2}}\)}
+	\label{fig:triggersNR2}
+\end{figure}
+\(\xoverline{R_2} = \xoverline{z_{2}}\vee{z_{3}}\vee{z_{1}}\xoverline{z_{4}}\vee\xoverline{z_{1}}{z_{4}}\vee\xoverline{x_{0}}\xoverline{x_{7}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/R3.pdf}
+	\caption{Геометрическое представление функции \({R_{3}}\)}
+	\label{fig:triggersR3}
+\end{figure}
+\({R_3} = {x_{7}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{4}}\vee{x_{0}}{z_{2}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/R3.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{R_{3}}\)}
+	\label{fig:triggersNR3}
+\end{figure}
+\(\xoverline{R_3} = \xoverline{z_{4}}\vee{z_{1}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{2}}\vee\xoverline{x_{0}}{z_{2}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/R4.pdf}
+	\caption{Геометрическое представление функции \({R_{4}}\)}
+	\label{fig:triggersR4}
+\end{figure}
+\({R_4} = {x_{2}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee{x_{5}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/R4.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{R_{4}}\)}
+	\label{fig:triggersNR4}
+\end{figure}
+\(\xoverline{R_4} = \xoverline{z_{4}}\vee{z_{3}}\vee{z_{2}}\vee\xoverline{x_{2}}\xoverline{z_{1}}\vee\xoverline{x_{5}}{z_{1}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/T1.pdf}
+	\caption{Геометрическое представление функции \({T_{1}}\)}
+	\label{fig:triggersT1}
+\end{figure}
+\({T_1} = {x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{3}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{1}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{1}}{z_{2}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{4}}{z_{1}}{z_{2}}{z_{4}}\vee\xoverline{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/T1.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{T_{1}}\)}
+	\label{fig:triggersNT1}
+\end{figure}
+\(\xoverline{T_1} = \xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{z_{1}}{z_{3}}\vee{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{z_{1}}{z_{4}}\vee\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}\vee{x_{3}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{1}}\xoverline{x_{7}}\xoverline{z_{1}}{z_{2}}\vee{x_{0}}{z_{3}}\xoverline{z_{4}}\vee{x_{4}}\xoverline{z_{3}}{z_{4}}\vee{x_{6}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/T2.pdf}
+	\caption{Геометрическое представление функции \({T_{2}}\)}
+	\label{fig:triggersT2}
+\end{figure}
+\({T_2} = {x_{3}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}\xoverline{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{3}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{5}}{z_{1}}\xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{x_{5}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{7}}{z_{1}}{z_{2}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}{z_{4}}\vee{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/T2.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{T_{2}}\)}
+	\label{fig:triggersNT2}
+\end{figure}
+\(\xoverline{T_2} = {z_{1}}{z_{2}}\xoverline{z_{4}}\vee\xoverline{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{z_{1}}{z_{2}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{x_{5}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{0}}{z_{2}}\xoverline{z_{4}}\vee{x_{7}}{z_{2}}\vee\xoverline{x_{5}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}{z_{3}}\vee\xoverline{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/T3.pdf}
+	\caption{Геометрическое представление функции \({T_{3}}\)}
+	\label{fig:triggersT3}
+\end{figure}
+\({T_3} = {x_{4}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}{zn_{4}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}{z_{4}}\vee\xoverline{x_{0}}{z_{2}}{z_{3}}{z_{40}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/T3.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{T_{3}}\)}
+	\label{fig:triggersNT3}
+\end{figure}
+\(\xoverline{T_3} = {z_{3}}\xoverline{z_{4}}\vee{z_{1}}{z_{2}}\vee{z_{1}}{z_{4}}\vee\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{2}}\xoverline{z_{4}}\vee{x_{4}}\xoverline{z_{2}}{z_{4}}\vee{x_{7}}\xoverline{z_{2}}{z_{4}}\vee{x_{0}}{z_{2}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/T4.pdf}
+	\caption{Геометрическое представление функции \({T_{4}}\)}
+	\label{fig:triggersT4}
+\end{figure}
+\({T_4} = {x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{4}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{0}}{z_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{x_{4}}{z_{1}}\xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{x_{3}}\xoverline{z_{1}}{z_{2}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{2}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{5}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/T4.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{T_{4}}\)}
+	\label{fig:triggersNT4}
+\end{figure}
+\(\xoverline{T_4} = \xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{z_{1}}{z_{2}}{z_{3}}\vee{z_{3}}{z_{4}}\vee{z_{2}}{z_{4}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{1}}{z_{2}}\vee\xoverline{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{4}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{4}}\vee\xoverline{x_{3}}{z_{2}}{z_{3}}\vee{x_{2}}\xoverline{z_{1}}{z_{4}}\vee{x_{5}}{z_{1}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/J1.pdf}
+	\caption{Геометрическое представление функции \({J_{1}}\)}
+	\label{fig:triggersJ1}
+\end{figure}
+\({J_1} = {x_{4}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{1}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/J1.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{J_{1}}\)}
+	\label{fig:triggersNJ1}
+\end{figure}
+\(\xoverline{J_1} = {z_{3}}\vee{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\vee\xoverline{x_{1}}\xoverline{x_{7}}{z_{2}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/J2.pdf}
+	\caption{Геометрическое представление функции \({J_{2}}\)}
+	\label{fig:triggersJ2}
+\end{figure}
+\({J_2} = {x_{3}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{3}}{z_{1}}\xoverline{z_{4}}\vee{x_{5}}{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{x_{5}}\xoverline{z_{1}}\xoverline{z_{3}}{z_{4}}\vee{x_{4}}\xoverline{z_{1}}{z_{3}}{z_{4}}\vee{x_{6}}{z_{1}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/J2.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{J_{2}}\)}
+	\label{fig:triggersNJ2}
+\end{figure}
+\(\xoverline{J_2} = \xoverline{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{z_{1}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{x_{5}}\xoverline{z_{4}}\vee\xoverline{x_{5}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}{z_{3}}\vee\xoverline{x_{6}}{z_{1}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/J3.pdf}
+	\caption{Геометрическое представление функции \({J_{3}}\)}
+	\label{fig:triggersJ3}
+\end{figure}
+\({J_3} = {x_{4}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/J3.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{J_{3}}\)}
+	\label{fig:triggersNJ3}
+\end{figure}
+\(\xoverline{J_3} = {z_{1}}{z_{2}}\vee{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\vee\xoverline{x_{0}}{z_{2}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/J4.pdf}
+	\caption{Геометрическое представление функции \({J_{4}}\)}
+	\label{fig:triggersJ4}
+\end{figure}
+\({J_4} = {x_{4}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{7}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{0}}{z_{1}}{z_{2}}\xoverline{z_{3}}\vee{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{3}}\vee{x_{4}}{z_{1}}\xoverline{z_{2}}{z_{3}}\vee{x_{3}}\xoverline{z_{1}}{z_{2}}{z_{3}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/J4.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{J_{4}}\)}
+	\label{fig:triggersNJ4}
+\end{figure}
+\(\xoverline{J_4} = \xoverline{z_{2}}\xoverline{z_{3}}\vee{z_{1}}{z_{2}}{z_{3}}\vee\xoverline{x_{0}}{z_{1}}{z_{2}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{3}}\vee\xoverline{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}\vee\xoverline{x_{4}}{z_{1}}\xoverline{z_{2}}\vee\xoverline{x_{3}}{z_{2}}{z_{3}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/K1.pdf}
+	\caption{Геометрическое представление функции \({K_{1}}\)}
+	\label{fig:triggersK1}
+\end{figure}
+\({K_1} = {x_{3}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{0}}{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{x_{4}}{z_{2}}\xoverline{z_{3}}{z_{4}}\vee{x_{6}}\xoverline{z_{2}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/K1.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{K_{1}}\)}
+	\label{fig:triggersNK1}
+\end{figure}
+\(\xoverline{K_1} = \xoverline{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{z_{2}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{0}}{z_{3}}\xoverline{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{6}}{z_{3}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/K2.pdf}
+	\caption{Геометрическое представление функции \({K_{2}}\)}
+	\label{fig:triggersK2}
+\end{figure}
+\({K_2} = {x_{0}}\xoverline{z_{1}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}\xoverline{z_{1}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{7}}{z_{1}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/K2.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{K_{2}}\)}
+	\label{fig:triggersNK2}
+\end{figure}
+\(\xoverline{K_2} = {z_{1}}\xoverline{z_{4}}\vee{z_{3}}\vee\xoverline{z_{1}}{z_{4}}\vee\xoverline{x_{0}}\xoverline{x_{7}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/K3.pdf}
+	\caption{Геометрическое представление функции \({K_{3}}\)}
+	\label{fig:triggersK3}
+\end{figure}
+\({K_3} = {x_{4}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{4}}\vee{x_{7}}\xoverline{z_{1}}\xoverline{z_{2}}{z_{4}}\vee{x_{0}}{z_{2}}{z_{4}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/K3.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{K_{3}}\)}
+	\label{fig:triggersNK3}
+\end{figure}
+\(\xoverline{K_3} = \xoverline{z_{4}}\vee{z_{1}}\vee\xoverline{x_{4}}\xoverline{x_{7}}\xoverline{z_{2}}\vee\xoverline{x_{0}}{z_{2}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubes/K4.pdf}
+	\caption{Геометрическое представление функции \({K_{4}}\)}
+	\label{fig:triggersK4}
+\end{figure}
+\({K_4} = {x_{2}}\xoverline{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\vee{x_{5}}{z_{1}}\xoverline{z_{2}}\xoverline{z_{3}}\)
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{triggerCubesInv/K4.pdf}
+	\caption{Геометрическое представление функции \(\xoverline{K_{4}}\)}
+	\label{fig:triggersNK4}
+\end{figure}
+\(\xoverline{K_4} = {z_{2}}\vee{z_{3}}\vee\xoverline{x_{2}}\xoverline{z_{1}}\vee\xoverline{x_{5}}{z_{1}}\)
+
+%Конец кубов
+\newpage
+Для каждой из найденных выше дизъюнктивных нормальных форм функций возбуждения найдены оценки их сложности, обозначенные как \(O(f)\) и \(O(\xoverline f)\) (последние две строки таблиц \ref{tab:triggersD_RS} и \ref{tab:triggersT_JK} ). 
+
+Выходными сигналами автомата являются \(OK\), \(FAULT\) и \(ISR\). Автомат вырабатыв сигнал \(OK\) каждый раз, когда предъявленная на его входе цепочка символов принадлежит языку с грамматикой \(G'\). Сигнал \(OK\) принимает значение \(1\), если автомат находится в финальном состоянии \(r_{14}\) (0101) или в промежуточном состоянии \(r_{1}\) (1000), его функция имеет вид: 
+\begin{center}
+\(OK={z_1}\xoverline{z_2}\xoverline{z_3}\xoverline{z_4}\vee\xoverline{z_1}{z_2}\xoverline{z_3}{z_4}\). 
+\end{center}
+Сигнал \(FAULT\) принимает значение "\(1\)", когда автомат переходит в состояние ошибки \textendash\ \(r_{15}\):
+\begin{center}
+\(FAULT=r_{15}\).
+\end{center}
+Сигнал ISR запрашивает начальную установку автомата от внешней среды. Он принимает значение "\(1\)", когда автомат находится в финальном состоянии или в состоянии ошибки: 
+\begin{center}
+\(ISR=\xoverline{z_1}{z_2}\xoverline{z_3}{z_4}\vee{r_{15}}\).
+\end{center}
+Состояние ошибки \(r_{15}\) будет возникать каждый раз, когда выход автомата из текущего состояния по пришедшему символу не предусмотрен (пустые клетки таблицы \ref{tab:state_machine_min}). Если поместить это состояние в свободную вершину с номером \(15\) четырехмерного гиперкуба кодирования (рисунок \ref{fig:state_machine_on_cube}), то усилия по упрощению функции возбуждения триггеров окажутся тщетными. Поэтому для размешения состояния \(r_{15}\) вводится новая внутрення переменная \(z_5\). Она будет принимать значение \(1\) всякий раз, когда цепочка входных символов не принадлежит языку.
+
+Внутренней переменной \(z_5\) можно поставить в соответствие \(RS\) или \(JK\) триггер. Функция его установки может быть представлена как :
+\begin{center} \(\xoverline{S_5}=\xoverline{J_5}={f_1} \vee{f_2} \vee{f_3} \vee{f_4} \vee{is}\),
+\end{center}
+где \(f_1\) \textendash\ \(f_4\) функция принимающая значение "\(1\)",если триггер, соответсвующий внутренней переменной \(z_1\)  \textendash\ \(z_4\) соответсвенно переключается во время перехода из одного состояния в другое, а \(is\) \textendash\ символ начальной установки всех триггеров. Для \(T\)-триггеров: \(f_i=T_i\), для \(D\)-триггеров:
+\(f_i={D_i}\xoverline{z_i}\vee\xoverline{D_i}{z_i}\)
+, для \(RS\)-триггеров: 
+\(f_i={S_i}\xoverline{z_i}\vee\xoverline{R_i}{z_i}\)
+, для \(JK\)-триггеров: 
+\(f_i={J_i}\xoverline{z_i}\vee\xoverline{K_i}{z_i}\).
+Следовательно каждый \(T\)-триггер увеличивает сложность функции \({S_5}({J_5}\) на 1, а остальные триггеры \textendash\ на 4. Полученные оченки сложности следует добавить к оценкам сложности \(O(f)\) и \(O(\xoverline f)\) в таблицах \ref{tab:triggersD_RS} и \ref{tab:triggersT_JK}. Результирующие оценки сложности являются критерием для выбора типа триггеров. 
+В данной работе минимальной сложность обладают функции возмущения \(JK\)-триггеров, поэтому в качестве элементов памяти автомата выбираем именно \(JK\)-триггеры. Выпишем все логические функции, которые необходимо реализовать в рамках комбинационной схемы и выходного преобразователя автомата.
+
+\(\xoverline{J_1} = {z_{3}}\vee{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{2}}\vee\xoverline{x_{1}}\xoverline{x_{7}}{z_{2}}\)
+
+\({K_1} = {x_{3}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}\vee{x_{0}}{z_{2}}{z_{3}}\xoverline{z_{4}}\vee{x_{4}}{z_{2}}\xoverline{z_{3}}{z_{4}}\vee{x_{6}}\xoverline{z_{2}}{z_{3}}{z_{4}}\)
+
+\(\xoverline{J_2} = \xoverline{z_{1}}{z_{3}}\xoverline{z_{4}}\vee{z_{1}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{3}}\xoverline{x_{5}}\xoverline{z_{4}}\vee\xoverline{x_{5}}\xoverline{z_{3}}{z_{4}}\vee\xoverline{x_{4}}\xoverline{z_{1}}{z_{3}}\vee\xoverline{x_{6}}{z_{1}}{z_{4}}\)
+
+\(\xoverline{K_2} = {z_{1}}\xoverline{z_{4}}\vee{z_{3}}\vee\xoverline{z_{1}}{z_{4}}\vee\xoverline{x_{0}}\xoverline{x_{7}}\)
+
+\({J_3} = {x_{4}}\xoverline{z_{2}}\xoverline{z_{4}}\vee{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{4}}\)
+
+\(\xoverline{K_3} = \xoverline{z_{4}}\vee{z_{1}}\vee\xoverline{x_{4}}\xoverline{x_{7}}\xoverline{z_{2}}\vee\xoverline{x_{0}}{z_{2}}\)
+
+\(\xoverline{J_4} = \xoverline{z_{2}}\xoverline{z_{3}}\vee{z_{1}}{z_{2}}{z_{3}}\vee\xoverline{x_{0}}{z_{1}}{z_{2}}\vee\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{3}}\vee\xoverline{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}\vee\xoverline{x_{4}}{z_{1}}\xoverline{z_{2}}\vee\xoverline{x_{3}}{z_{2}}{z_{3}}\)
+
+\(\xoverline{K_4} = {z_{2}}\vee{z_{3}}\vee\xoverline{x_{2}}\xoverline{z_{1}}\vee\xoverline{x_{5}}{z_{1}}\)
+
+\(\xoverline{J_5} = is\vee{{J_1}\xoverline{z_1}}\vee{{K_1}{z_1}}\vee{{J_2}\xoverline{z_2}}\vee{{K_2}{z_2}}\vee{{J_3}\xoverline{z_3}}\vee{{K_3}{z_3}}\vee{{J_4}\xoverline{z_4}}\vee{{K_4}{z_4}}\)
+
+\(OK={z_1}\xoverline{z_2}\xoverline{z_3}\xoverline{z_4}\vee\xoverline{z_1}{z_2}\xoverline{z_3}{z_4}\) 
+
+\(FAULT = z_{5}\)
+
+\(ISR = {z_1}\xoverline{z_2}{z_3}\xoverline{z_4}\vee{z_{5}}\)
+ 
+НУ\( = is \cdot t\)
+
+Последняя строка в этой системе уравнений представляет функцию сигнала начальной установки триггеров автомата. Этот сигнал вырабатывается по фронту такта синхронизации при поступлении символа начальной установки. 
+
+
+\section {Реализация автомата}
+
+Проектирование логической схемы автомата выполним при помощи САПР "Quartus II". В качестве базиса реализации возьмем простые элементы типа НЕ, И-НЕ, ИЛИ-НЕ. ДЛя реализации логических функций выберем антионный базис из простых элементов. Максимальное возможное число входов каждого элемента ограничим четырьмя. После преобразования функций полученной ранее системы по правилам де Моргана, согласно с описанными тербованиями, получаем следующую систему уравнений. 
+
+\({J_1} = \overline{\overline{\xoverline{z_{3}}\cdot\xoverline{z_{4}}\cdot\overline{\xoverline{x_{4}}\xoverline{z_{2}}}\cdot\overline{\xoverline{x_{1}}\xoverline{x_{7}}{z_{2}}}}}\)
+
+\({K_1} = \overline{\overline{{x_{3}}\xoverline{z_{2}}\xoverline{z_{3}}\xoverline{z_{4}}}\cdot\overline{{x_{0}}{z_{2}}{z_{3}}\xoverline{z_{4}}}\cdot\overline{{x_{4}}{z_{2}}\xoverline{z_{3}}{z_{4}}}\cdot\overline{{x_{6}}\xoverline{z_{2}}{z_{3}}{z_{4}}}}\)
+
+\({J_2} = \overline{\overline{\overline{\xoverline{z_{1}}{z_{3}}\xoverline{z_{4}}}\cdot\overline{{z_{1}}\xoverline{z_{3}}{z_{4}}}\cdot\overline{\xoverline{x_{3}}\xoverline{x_{5}}\xoverline{z_{4}}}}\vee\overline{\overline{\xoverline{x_{5}}\xoverline{z_{3}}{z_{4}}}\cdot\overline{\xoverline{x_{4}}\xoverline{z_{1}}{z_{3}}}\cdot\overline{\xoverline{x_{6}}{z_{1}}{z_{4}}}}}\)
+
+\({K_2} = \overline{\overline{\overline{{z_{1}}\xoverline{z_{4}}}\cdot\xoverline{{z_{3}}}\cdot\overline{\xoverline{z_{1}}{z_{4}}}\cdot\overline{\xoverline{x_{0}}\xoverline{x_{7}}}}}\)
+
+\({J_3} = \overline{\overline{{x_{4}}\xoverline{z_{2}}\xoverline{z_{4}}}\cdot\overline{{x_{0}}\xoverline{z_{1}}{z_{2}}\xoverline{z_{4}}}}\)
+
+\({K_3} = \overline{\overline{{z_{4}}\cdot\xoverline{{z_{1}}}\cdot\overline{\xoverline{x_{4}}\xoverline{x_{7}}\xoverline{z_{2}}}\cdot\overline{\xoverline{x_{0}}{z_{2}}}}}\)
+
+\({J_4} = \overline{\overline{\overline{\xoverline{z_{2}}\xoverline{z_{3}}}\cdot\overline{{z_{1}}{z_{2}}{z_{3}}}\cdot\overline{\xoverline{x_{0}}{z_{1}}{z_{2}}}\cdot\overline{\xoverline{x_{7}}\xoverline{x_{4}}\xoverline{z_{1}}\xoverline{z_{3}}}}\vee\overline{\overline{\xoverline{x_{0}}\xoverline{z_{1}}\xoverline{z_{2}}}\cdot\overline{\xoverline{x_{4}}{z_{1}}\xoverline{z_{2}}}\cdot\overline{\xoverline{x_{3}}{z_{2}}{z_{3}}}}}\)
+
+\(\xoverline{K_4} = \overline{\overline{\xoverline{{z_{2}}}\cdot\xoverline{{z_{3}}}\cdot\overline{\xoverline{x_{2}}\xoverline{z_{1}}}\cdot\overline{\xoverline{x_{5}}{z_{1}}}}}\)
+
+\({J_5} = \overline{is\vee\overline{\overline{{{J_1}\xoverline{z_1}}}\cdot\overline{{{K_1}{z_1}}}\cdot\overline{{{J_2}\xoverline{z_2}}}\cdot\overline{{{K_2}{z_2}}}}\vee\overline{\overline{{{J_3}\xoverline{z_3}}}\cdot\overline{{{K_3}{z_3}}}\cdot\overline{{{J_4}\xoverline{z_4}}}\cdot\overline{{{K_4}{z_4}}}}}\)
+
+\(OK = \overline{\overline{{z_1}\xoverline{z_2}\xoverline{z_3}\xoverline{z_4}}\cdot\overline{{z_1}\xoverline{z_2}{z_3}\xoverline{z_4}}}\)
+
+\(FAULT = z_{5}\)
+
+\(ISR = \overline{\overline{{z_1}\xoverline{z_2}{z_3}\xoverline{z_4}}\cdot\xoverline{{z_{5}}}}\)
+
+%НУ\( = is \cdot t\)
+
+Данные уравнения реализуем в виде комбинационных схем возбуждения \(JK\)-триггеров (рисунки \ref{fig:JK1} \textendash\ \ref{fig:JK5})и схем выходной логики (рисунок \ref{fig:outLogic}). Пример реализации самого триггера приведен на рисунке \ref{fig:JKtrigger}. Реализуем также описанный выше декодер входного сигнала (рисунок \textendash\ \ref{fig:decoder}.   
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{outLogic.png}
+	\caption{Выходная логика}
+	\label{fig:outLogic}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{decoder.png}
+	\caption{Cхема дешифратора}
+	\label{fig:decoder}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{jk1.png}
+	\caption{Комбинационная схема для триггера  \({JK}_1\)}
+	\label{fig:JK1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{jk2.png}
+	\caption{Комбинационная схема для триггера  \({JK}_2\)}
+	\label{fig:JK2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{jk3.png}
+	\caption{Комбинационная схема для триггера  \({JK}_3\)}
+	\label{fig:JK3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.87\textwidth]{jk4.png}
+	\caption{Комбинационная схема для триггера  \({JK}_4\)}
+	\label{fig:JK4}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{jk5.png}
+	\caption{Комбинационная схема для триггера  \({JK}_5\)}
+	\label{fig:JK5}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{trigExample.png}
+	\caption{Пример триггера}
+	\label{fig:JKtrigger}
+\end{figure}
+
+\section {Верификация автомата}
+
+Для проверки правильности функционирования спроектированного распознающего автомата проведем тестирование его логической схемы. Для этого разработаем систему тестов, состоящую из набора цепочек входных символов. При этом проверим все переходы на графе минимального автомата, а так же проверим несколько переходов в состояние ошибки. Результаты тестирования в среде "Quartus II" представлены на рисунке \ref{fig:verif}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{verif.png}
+	\caption{Временные диаграммы работы автомата}
+	\label{fig:verif}
+\end{figure}
+
+В результате проверки разработанный автомат верно прошел все переходы с графа минимального автомата. Также для рассмотренных ошибочных переходов (кроме перехода по \(x_5\) из начального состояния) автомат выдал сигнал ошибки.   
+
+
+\end{document}

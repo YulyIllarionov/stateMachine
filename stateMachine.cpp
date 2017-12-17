@@ -285,10 +285,12 @@ int main()
     graphTable minimizedStateMachineTable(minimizedStateMachine, " ");
     minimizedStateMachineTable.toTexFile("minimizedStateMachineTable.txt");
 
-    //minimizedStateMachine.placingStates(/*31, std::vector<unsigned>({0, 21, 7, 1, 1, })*/);
+	//Ищет лучшую по хэммингу перестановку и выводит в консоль 
+	//полный перебор реализован плохо и работает черезчур долго
+	//когда будет найдена лучшая перестановка закоментировать эту строку и использовать следующую
+    //minimizedStateMachine.placingStates();
     minimizedStateMachine.placingStates(std::vector<unsigned>({ 0, 1, 2, 3, 6, 8, 4, 15, 7, 9, 5, 10, 14, 13, 12, 11, }));
     minimizedStateMachine.toCubeDotFile("cubeMinimizedStateMachine.dot");
-
 
 	system("pause");
 
